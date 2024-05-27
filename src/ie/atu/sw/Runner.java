@@ -7,6 +7,6 @@ public class Runner {
 		
 		Menu menu = new Menu();
 		
-		menu.options();
+		menu.start();
 	}
 }
