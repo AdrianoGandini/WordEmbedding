@@ -29,7 +29,7 @@ public class Menu {
 			
 			options(); // Calling the private options method to print the user options.
 			
-			int choice = s.nextInt(); // Variable to hold the user input
+			int choice = s.nextInt(); 
 			
 			switch(choice) {
 			
@@ -38,12 +38,21 @@ public class Menu {
 			case 3 -> word();
 			case 4 -> menuRunnig = false;
 			default -> System.out.println("Invalid Selction");
+			
 			}
 		}
 	}
 	
-	public void filePath() {
-		//TODO;
+	
+	/*
+	 * The filePath method take a user input 
+	 */
+	public String filePath() {
+		
+		System.out.println("Enter the Word Embedding file path > ");
+		String fpath = s.next();
+	
+		return fpath;
 	}
 	
 	public void outputFile() {
@@ -54,9 +63,12 @@ public class Menu {
 		//TODO;
 	}
 	
-	//Method to print the application header and the options 
+	
+	/*
+	 * The method print the aplication header and available options
+	 */
+	
 	private void options() {
-		
 		
 		System.out.println("*************************************************************");
 		System.out.println("*                                                           *");
