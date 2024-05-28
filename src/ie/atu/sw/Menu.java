@@ -5,9 +5,12 @@ import java.util.Scanner;
 public class Menu {
 
 	/*
-	 * TODO: show options; create a switch statement to access the options methods;
+	 * TODO: 
 	 * create the options methods;
 	 */
+	
+	//Creating a EmbeddingFileIO object.
+	EmbeddingFileIO io = new EmbeddingFileIO();
 	
 	//Class variable to track the menu state.
 	private boolean menuRunnig = true;
@@ -45,14 +48,11 @@ public class Menu {
 	
 	
 	/*
-	 * The filePath method take a user input 
+	 * Return the file path. 
 	 */
 	public String filePath() {
 		
-		System.out.println("Enter the Word Embedding file path > ");
-		String fpath = s.next();
-	
-		return fpath;
+		return io.getFilePath();
 	}
 	
 	public void outputFile() {
@@ -65,7 +65,7 @@ public class Menu {
 	
 	
 	/*
-	 * The method print the aplication header and available options
+	 * The method print the aplication header and available options to the console.
 	 */
 	
 	private void options() {
