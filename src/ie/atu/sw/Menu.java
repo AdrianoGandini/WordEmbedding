@@ -49,16 +49,25 @@ public class Menu {
 	
 	
 	/*
-	 * Return the file path. 
+	 * Method to get the user Embedding Word file path. Not sure if this method
+	 * suppose to be here or in the EmbeddingFileIO class
 	 */
 	public String filePath() {
 		
-		return io.getFilePath();
+		System.out.println("Enter the Word Embedding file path > ");
+		
+		String fpath = s.next();
+		System.out.println(fpath);
+		return fpath;
+		
+		
 	}
 	
 	
 	//TODO I am not sure how to handle in array input. If it will be taken as an argument for this method or somehow a class variable.
-	public void outputFile(String[] array) {
+	public void outputFile() {
+		
+		String[] array = {"Alice", "Bob", "Charlie", "Diana", "Edward"}; // This array is here just for testing, must be removed
 		
 		s = new Scanner(System.in);
 		

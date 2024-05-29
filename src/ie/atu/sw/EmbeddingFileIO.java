@@ -8,21 +8,6 @@ import java.util.Scanner;
 public class EmbeddingFileIO {
 
 
-	// Class scanner variable
-	private Scanner s;
-
-	/*
-	 * Method to get the user Embedding Word file path. Not sure if this method
-	 * suppose to be here.
-	 */
-	public String getFilePath() {
-
-		System.out.println("Enter the Word Embedding file path > ");
-		String fpath = s.next();
-
-		return fpath;
-	}
-	
 	/*
 	 * Writes the contents of a specified array to a file. Each element of the array is written in a "txt" file adding ", " to improve readability. 
 	 * 
