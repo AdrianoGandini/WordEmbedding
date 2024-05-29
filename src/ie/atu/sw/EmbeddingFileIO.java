@@ -3,13 +3,12 @@ package ie.atu.sw;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class EmbeddingFileIO {
 
 
 	/*
-	 * Writes the contents of a specified array to a file. Each element of the array is written in a "txt" file adding ", " to improve readability. 
+	 * Writes the contents of a specified array to a file. Each element of the array is written in a text file adding ", " to improve readability. 
 	 * 
 	 * @param words array of String
 	 * @param fileName file name provided by user
