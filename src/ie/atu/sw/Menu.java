@@ -1,5 +1,6 @@
 package ie.atu.sw;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -24,8 +25,8 @@ public class Menu {
 	}
 	
 	
-	//Method to containig ta swhitch spatement to process user input
-	//TODO; a user exception to prevent the user to input a invalid input
+	//Method to containig ta switch statement to process user input.
+	//TODO; a user exception to prevent the user to input a invalid input.
 	public void start() {
 		
 		while(menuRunnig) {
@@ -55,8 +56,24 @@ public class Menu {
 		return io.getFilePath();
 	}
 	
-	public void outputFile() {
-		//TODO;
+	
+	//TODO I am not sure how to handle in array input. If it will be taken as an argument for this method or somehow a class variable.
+	public void outputFile(String[] array) {
+		
+		s = new Scanner(System.in);
+		
+		System.out.print("[INFO] Please provide the output file name > ");
+		String fileName = s.next() + ".txt"; // Add a txt extension to the file name.
+		
+		
+		
+		try {
+			io.fileWriter(array, fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void word() {

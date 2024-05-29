@@ -1,36 +1,54 @@
 package ie.atu.sw;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class EmbeddingFileIO {
 
-	//TODO create a method to read the user input as a EnbeddingWord file path ; create a method to write the output to a file named by the user.
-	
-	//Class scanner variable
+
+	// Class scanner variable
 	private Scanner s;
-	
+
 	/*
-	 * Method to get the user Embedding Word file path.
-	 * Not sure if this method suppose to be here.
+	 * Method to get the user Embedding Word file path. Not sure if this method
+	 * suppose to be here.
 	 */
 	public String getFilePath() {
-		
+
 		System.out.println("Enter the Word Embedding file path > ");
 		String fpath = s.next();
-	
+
 		return fpath;
 	}
 	
-	public void fileReader() throws FileNotFoundException {
+	/*
+	 * Writes the contents of a specified array to a file. Each element of the array is written in a "txt" file adding ", " to improve readability. 
+	 * 
+	 * @param words array of String
+	 * @param fileName file name provided by user
+	 * @throws IOException if an I/O error occurs while writing to the file
+	 */
+
+	public void fileWriter(String[] words, String fileName) throws IOException {
+
+		BufferedWriter in = new BufferedWriter(new FileWriter(fileName));
+
+		for (int i = 0; i < words.length; i++) {
+			in.write(words[i]);
+			
+			if (i < words.length - 1) {
+				in.write(", ");
+				
+			}
+		}
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("file.txt")));
-		
-		//TODO
-		
+		in.flush();
+		in.close();
+
 	}
+
 	
+
 }
