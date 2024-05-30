@@ -4,23 +4,18 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-
-	/*
-	 * TODO: create the options methods;
-	 */
-
-	// Creating a EmbeddingFileIO object.
-	EmbeddingFileIO io = new EmbeddingFileIO();
-
-	// Class variable to track the menu state.
-	private boolean menuRunnig = true;
-
-	// Creating a new class Scanner object to take user input
+	
+	private EmbeddingFileIO io;
+	private boolean menuRunnig;
 	private Scanner s;
-
-	// Constructor initiating the Scanner s object.
+	
+	
+	
+	// Constructor initiating the the class variables.
 	public Menu() {
-		s = new Scanner(System.in);
+		this.io = new EmbeddingFileIO();
+		this.s = new Scanner(System.in);
+		this.menuRunnig = true;
 	}
 
 	// Method to containing a switch statement to process user input.
@@ -49,7 +44,7 @@ public class Menu {
 	 * Method to get the user Embedding Word file path. Not sure if this method
 	 * suppose to be here or in the EmbeddingFileIO class
 	 */
-	public String filePath() {
+	private String filePath() {
 
 		System.out.println("Enter the Word Embedding file path > ");
 
@@ -60,7 +55,7 @@ public class Menu {
 
 	// TODO I am not sure how to handle in array input. If it will be taken as an
 	// argument for this method or somehow a class variable.
-	public void outputFile() {
+	private void outputFile() {
 
 		String[] array = { "Alice", "Bob", "Charlie", "Diana", "Edward" }; // This array is here just for testing, must
 																			// be removed
@@ -80,7 +75,7 @@ public class Menu {
 	}
 
 	public void word() {
-		// TODO;
+		// Create a method that take a String from user
 	}
 
 	/*
