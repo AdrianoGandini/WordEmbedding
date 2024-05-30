@@ -2,6 +2,11 @@ package ie.atu.sw;
 
 import java.util.Scanner;
 
+/**
+ * The Menu class handles the user interface for the application.
+ * It displays options to the user and processes their input.
+ */
+
 public class Menu {
 
 	private WordEmbeddingIO io;
@@ -9,7 +14,9 @@ public class Menu {
 	private boolean menuRunnig;
 	private Scanner s;
 
-	// Constructor initiating the the class variables.
+	/*
+	 *  Constructor initiating the the class variables.
+	 */
 	public Menu() {
 		this.io = new WordEmbeddingIO();
 		this.eu = new EmbeddingUtility();
@@ -18,7 +25,9 @@ public class Menu {
 	}
 
 	
-	// TODO; a user exception to prevent the user to input a invalid input.
+	/**
+     * Starts the menu loop, displaying options and processing user input.
+     */
 	public void start() {
 
 		while (menuRunnig) {
@@ -33,7 +42,7 @@ public class Menu {
 	}
 
 	/*
-	 * The method print the application header and available options to the console.
+	 * The method displays the application header and available options to the user.
 	 */
 	private void showOptions() {
 
@@ -46,14 +55,25 @@ public class Menu {
 		System.out.println();
 		System.out.println("(1) Specify Embedding File");
 		System.out.println("(2) Specify a Output File name");
-		System.out.println("(3) Enter a word");
+		System.out.println("(3) Enter a word or a text");
+		System.out.println("(?) Configure Options");
+		System.out.println("(?) Optional Extras...");
 		System.out.println("(4) Quit");
+		
+		System.out.println(ConsoleColour.BLACK_BACKGROUND_BRIGHT);
+		System.out.println("Slelect Option [1 - 4 > ");
+		System.out.println();
 	}
 
-	// Method to containing a switch statement to process user input.
+	/*
+	 * Method process the user choice and handle tasks for other classes.
+	 * 
+	 * @param choice the user's menu selection.
+	 */
 	private void handleOptions(int choice) {
 
-		switch (choice) {
+		
+	switch (choice) {
 
 		case 1 -> io.filePath();
 		case 2 -> io.outputFile(eu.compereVectors());
