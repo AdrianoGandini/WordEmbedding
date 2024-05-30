@@ -1,17 +1,14 @@
 package ie.atu.sw;
 
-
 import java.util.Scanner;
 
 public class Menu {
-	
+
 	private WordEmbeddingIO io;
 	private EmbeddingUtility eu;
 	private boolean menuRunnig;
 	private Scanner s;
-	
-	
-	
+
 	// Constructor initiating the the class variables.
 	public Menu() {
 		this.io = new WordEmbeddingIO();
@@ -20,32 +17,25 @@ public class Menu {
 		this.menuRunnig = true;
 	}
 
-	// Method to containing a switch statement to process user input.
+	
 	// TODO; a user exception to prevent the user to input a invalid input.
 	public void start() {
 
 		while (menuRunnig) {
 
-			options(); // Calling the private options method to print the user options.
-
+			showOptions();
+			
 			int choice = s.nextInt();
+			
+			handleOptions(choice);
 
-			switch (choice) {
-
-			case 1 -> io.filePath();
-			case 2 -> io.outputFile(eu.compereVectors());
-			case 3 -> io.word();
-			case 4 -> menuRunnig = false;
-			default -> System.out.println("Invalid Selction");
-
-			}
 		}
 	}
 
 	/*
 	 * The method print the application header and available options to the console.
 	 */
-	private void options() {
+	private void showOptions() {
 
 		System.out.println("*************************************************************");
 		System.out.println("*                                                           *");
@@ -58,6 +48,20 @@ public class Menu {
 		System.out.println("(2) Specify a Output File name");
 		System.out.println("(3) Enter a word");
 		System.out.println("(4) Quit");
+	}
+
+	// Method to containing a switch statement to process user input.
+	private void handleOptions(int choice) {
+
+		switch (choice) {
+
+		case 1 -> io.filePath();
+		case 2 -> io.outputFile(eu.compereVectors());
+		case 3 -> io.word();
+		case 4 -> menuRunnig = false;
+		default -> System.out.println("Invalid Selction");
+
+		}
 	}
 
 }

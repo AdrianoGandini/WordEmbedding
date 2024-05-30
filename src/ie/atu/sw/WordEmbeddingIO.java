@@ -78,8 +78,9 @@ public class WordEmbeddingIO {
 
 	}
 
-	public void word() {
-		// Create a method that take a String from user
+	public String word() {
+		System.out.print("Enter the Word to be compared > ");
+		return s.next(); 
 	}
 
 }
