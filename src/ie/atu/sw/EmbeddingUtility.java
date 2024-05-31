@@ -6,6 +6,15 @@ public class EmbeddingUtility {
 	 * Class to hold all the logic used to work with the embedded file
 	 */
 
+	//Method to provide the array size
+	public int arrayLenght() {
+		
+		//TODO Method to return the array length.
+		
+		return 0;
+		
+	}
+	
 	public String[] embeddingWordsArray() {
 
 		// TODO Create a function to read the file and copy the words into a array.
