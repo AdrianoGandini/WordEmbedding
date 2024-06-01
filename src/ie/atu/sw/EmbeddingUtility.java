@@ -14,7 +14,20 @@ public class EmbeddingUtility {
 	 * 
 	 */
 
+<<<<<<< HEAD
 	public int arraySize() {
+=======
+	//Method to provide the array size
+	public int arrayLenght() {
+		
+		//TODO Method to return the array length.
+		
+		return 0;
+		
+	}
+	
+	public String[] embeddingWordsArray() {
+>>>>>>> 9e78633bcb6f76456802a3a6ef9c59d02a2eb4f0
 
 		int lineCounter = 0;
 
