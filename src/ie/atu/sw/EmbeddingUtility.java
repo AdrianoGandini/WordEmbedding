@@ -1,6 +1,7 @@
 package ie.atu.sw;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -20,9 +21,10 @@ public class EmbeddingUtility {
 	/*
 	 * The method reads the file and return the number of rows or columns.
 	 * 
-	 * @param checkColumns boolean expression to determine if the method should return the number of columns or rows.
-	 * 		If true, the method returns the number of columns in the first row.
-	 *      If false, the method returns the number of rows in the file.
+	 * @param checkColumns boolean expression to determine if the method should
+	 * return the number of columns or rows. If true, the method returns the number
+	 * of columns in the first row. If false, the method returns the number of rows
+	 * in the file.
 	 */
 
 	public int arraySize(boolean checkColumns) {
@@ -32,7 +34,7 @@ public class EmbeddingUtility {
 		try (BufferedReader in = new BufferedReader(new FileReader(FILE_PATH))) {
 
 			if (checkColumns)
-				return in.readLine().split(",").length - 1; //Return the number of columns in a line.
+				return in.readLine().split(",").length - 1; // Return the number of columns in a line.
 
 			while (in.readLine() != null) {
 				rowsCounter++;
@@ -66,17 +68,33 @@ public class EmbeddingUtility {
 			counter++;
 		}
 		in.close();
-
 		return wordArray;
 
 	}
 
-	public double[] embeddingVectorsArray(int size) {
+	// Two dimensional array - The method is returning a bunch of nulls :(.
+	// TODO Create a function to read the file and copy the vectors into a array.
+	public Double[][] embeddingVectorArray(int rows, int columns) throws FileNotFoundException, IOException {
+		
+		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
+		
+		BufferedReader in = new BufferedReader(new FileReader(FILE_PATH));
+		
+		String line;
+		int row = 0; // Variable to keep track of the current row
 
-		// TODO Create a function to read the file and copy the vectors into a array.
-		double[] vector = new double[50]; // Change the hard code in the future.
-
-		return null;
+		while ((line = in.readLine()) != null) {
+			String[] embeddingLine = line.split(",");
+			
+			for (int j = 0; j < columns; j++) {
+				vector[row][j] = Double.parseDouble(embeddingLine[j + 1]);
+			}
+			
+			row++;
+		}
+		
+		in.close();
+		return vector;
 	}
 
 	public String[] compereVectors() {
