@@ -10,58 +10,69 @@ import java.io.IOException;
 
 public class EmbeddingUtility {
 
+	private static final String FILE_PATH = "word-embeddings.txt";
+
+	// Constructor
+	public EmbeddingUtility() {
+
+	}
+
 	/*
 	 * The method reads the file and add to a counter the number of lines.
 	 * 
 	 * TODO Observe what variables in the below methods should be class variables.
 	 */
 
-	public int arraySize() {
+	public int arraySize(boolean checkColumns) {
 
-		int lineCounter = 0;
+		int rowsCounter = 0; // Variable to hold the number of rows in the file.
 
-		// TODO Change the text file hard code in the future.
-		try (BufferedReader in = new BufferedReader(new FileReader("word-embeddings.txt"))) {
+		try (BufferedReader in = new BufferedReader(new FileReader(FILE_PATH))) {
+
+			if (checkColumns)
+				return in.readLine().split(",").length - 1; //Return the number of columns in a line.
+
 			while (in.readLine() != null) {
-				lineCounter++;
+				rowsCounter++;
 			}
 			in.close();
 		} catch (Exception e) {
 			System.err.println("[ERROR] Embeddings file not found");
 		}
-		return lineCounter;
+		return rowsCounter;
 	}
 
 	/*
 	 * The method creates an array containing the embedding words.
 	 * 
-	 * @param size the variable defines the word array size. 
+	 * @param size the variable defines the word array size.
 	 */
+
 	public String[] embeddingWordsArray(int size) throws IOException {
-		
+
 		String[] wordArray = new String[size];
-		
-		
-			BufferedReader in = new BufferedReader(new FileReader("word-embeddings.txt"));
-			
-			int counter = 0;
-			
-			String next;
-			
-			while((next = in.readLine()) != null) {
-				String[] line = next.split(",");
-				wordArray[counter] = line[0]; // The vector word is in the index 0
-				counter ++;
-			}
-			in.close();
-			
+
+		BufferedReader in = new BufferedReader(new FileReader(FILE_PATH));
+
+		int counter = 0;
+
+		String next;
+
+		while ((next = in.readLine()) != null) {
+			String[] line = next.split(",");
+			wordArray[counter] = line[0]; // The vector word is in the index 0
+			counter++;
+		}
+		in.close();
+
 		return wordArray;
-	
+
 	}
 
-	public String[] embeddingVectorsArray() {
+	public double[] embeddingVectorsArray(int size) {
 
 		// TODO Create a function to read the file and copy the vectors into a array.
+		double[] vector = new double[50]; // Change the hard code in the future.
 
 		return null;
 	}

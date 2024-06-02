@@ -9,8 +9,7 @@ public class WordEmbeddingIO {
 	private Scanner s;
 
 	/*
-	 * Constructor initiating the class variables. teste
-	 */
+	 * Constructor initiating the class variables. 
 
 	public WordEmbeddingIO() {
 		this.s = new Scanner(System.in);
