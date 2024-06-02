@@ -18,9 +18,11 @@ public class EmbeddingUtility {
 	}
 
 	/*
-	 * The method reads the file and add to a counter the number of lines.
+	 * The method reads the file and return the number of rows or columns.
 	 * 
-	 * TODO Observe what variables in the below methods should be class variables.
+	 * @param checkColumns boolean expression to determine if the method should return the number of columns or rows.
+	 * 		If true, the method returns the number of columns in the first row.
+	 *      If false, the method returns the number of rows in the file.
 	 */
 
 	public int arraySize(boolean checkColumns) {
