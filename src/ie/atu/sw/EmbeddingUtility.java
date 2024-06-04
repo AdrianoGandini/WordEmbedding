@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class EmbeddingUtility {
 
-	private static final String FILE_PATH = "word-embeddings.txt";
+	private static final String FILE_PATH = "word-embeddings.txt"; //How to link the file path provided by the user.
 
 	// Constructor
 	public EmbeddingUtility() {
@@ -72,15 +72,19 @@ public class EmbeddingUtility {
 
 	}
 
-	// Two dimensional array - The method is returning a bunch of nulls :(.
-	// TODO Create a function to read the file and copy the vectors into a array.
+	/*
+	 * The method creates an two dimensional array that contains the vectors
+	 * 
+	 *  @param rows number of rows in the array
+	 *  @param columns number of columns in the array. 
+	 */
 	public Double[][] embeddingVectorArray(int rows, int columns) throws FileNotFoundException, IOException {
 		
 		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
 		
 		BufferedReader in = new BufferedReader(new FileReader(FILE_PATH));
 		
-		String line;
+		String line; // Current BufferReader line 
 		int row = 0; // Variable to keep track of the current row
 
 		while ((line = in.readLine()) != null) {
@@ -88,11 +92,9 @@ public class EmbeddingUtility {
 			
 			for (int j = 0; j < columns; j++) {
 				vector[row][j] = Double.parseDouble(embeddingLine[j + 1]);
-			}
-			
+			}			
 			row++;
-		}
-		
+		}		
 		in.close();
 		return vector;
 	}
