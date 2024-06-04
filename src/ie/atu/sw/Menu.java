@@ -76,12 +76,13 @@ public class Menu {
 	switch (choice) {
 
 		case 1 -> io.filePath();
-		case 2 -> io.outputFile(eu.compereVectors());
+		case 2 -> io.outputFinal(eu.outputArray()); //not sure if suppose to call this specific method 
 		case 3 -> io.word();
 		case 4 -> menuRunnig = false;
 		default -> System.out.println("Invalid Selction");
 
 		}
 	}
+	
 
 }

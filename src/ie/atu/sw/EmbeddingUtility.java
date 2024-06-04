@@ -22,18 +22,17 @@ public class EmbeddingUtility {
 	 * The method reads the file and return the number of rows or columns.
 	 * 
 	 * @param checkColumns boolean expression to determine if the method should
-	 * return the number of columns or rows. If true, the method returns the number
-	 * of columns in the first row. If false, the method returns the number of rows
-	 * in the file.
+	 * return the number of columns or rows. 
 	 */
 
-	public int arraySize(boolean checkColumns) {
+	private int arraySize(boolean checkColumns) {
 
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
 
 		try (BufferedReader in = new BufferedReader(new FileReader(FILE_PATH))) {
 
-			if (checkColumns)
+			//If true, the method returns the number of columns in the first row. If false, the method returns the number of rows in the file.
+			if (checkColumns) 
 				return in.readLine().split(",").length - 1; // Return the number of columns in a line.
 
 			while (in.readLine() != null) {
@@ -52,7 +51,7 @@ public class EmbeddingUtility {
 	 * @param size the variable defines the word array size.
 	 */
 
-	public String[] embeddingWordsArray(int size) throws IOException {
+	private String[] embeddingWordsArray(int size) throws IOException {
 
 		String[] wordArray = new String[size];
 
@@ -99,11 +98,42 @@ public class EmbeddingUtility {
 		return vector;
 	}
 
-	public String[] compereVectors() {
+	public String[] compereVectors(String[] wordArray, Double[] embeddingVector) {
 
 		// TODO Method to compare the inputed word vector with all words vectors in the
 		// provided file. Return an array with the top 10 similar words
+		
+		
+		//Those lines of code were create for a test. This method was not started.
+		String[] array = new String[10];
+		
+		for (int i = 0; i < 10; i ++) {
+			array[i] = wordArray[i];
+		}
+		
+		return array;
+	}
+	
+	/*
+	 * Method to return the processed data.
+	 * TODO
+	 */
+	public String[] outputArray() {
+	    int rows = arraySize(false); // Get the number of rows with arraySize
 
-		return null;
+	    try {
+	        // Get the word array based on the number of rows
+	        String[] wordArray = embeddingWordsArray(rows);
+
+	        // Compare vectors and return the result
+	        return compereVectors(wordArray, null);
+	    } catch (IOException e) {
+	        // Log the exception (consider using a logging framework)
+	        System.err.println("An error occurred while processing the word array: " + e.getMessage());
+	        e.printStackTrace();
+	        
+	        // Return an empty array to avoid null pointer exceptions
+	        return new String[0];
+	    }
 	}
 }
