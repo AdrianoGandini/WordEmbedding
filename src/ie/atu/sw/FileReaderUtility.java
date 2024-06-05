@@ -12,8 +12,7 @@ import java.io.IOException;
 public class FileReaderUtility {
 	
 	private WordEmbeddingIO in;
-	//private static final String FILE_PATH = "word-embeddings.txt"; //How to link the file path provided by the user.
-	private String fpath;
+	
 	
 	// Constructor
 	public FileReaderUtility() {
@@ -33,30 +32,30 @@ public class FileReaderUtility {
 
 
 	/*
-	 * The method reads the file and return the number of rows or columns.
-	 * 
-	 * @param checkColumns boolean expression to determine if the method should
-	 * return the number of columns or rows. 
+	 * Method to return the number of rows in the WordEmbedding file.
 	 */
-
-	private int arraySize(boolean checkColumns) {
-
+	
+	private int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
+		
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
-
+		
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
-
-			//If true, the method returns the number of columns in the first row. If false, the method returns the number of rows in the file.
-			if (checkColumns) 
-				return in.readLine().split(",").length - 1; // Return the number of columns in a line.
-
 			while (in.readLine() != null) {
 				rowsCounter++;
 			}
 			in.close();
-		} catch (Exception e) {
-			System.err.println("[ERROR] Embeddings file not found");
 		}
 		return rowsCounter;
+	}
+	
+	/*
+	 * Method to return the number of columns in the WordEmbedding file.
+	 */
+	private int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
+		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
+			return in.readLine().split(",").length - 1;
+		}
+				
 	}
 
 	/*
