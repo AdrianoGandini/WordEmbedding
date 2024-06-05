@@ -10,13 +10,27 @@ import java.io.IOException;
  */
 
 public class FileReaderUtility {
-
-	private static final String FILE_PATH = "word-embeddings.txt"; //How to link the file path provided by the user.
-
+	
+	private WordEmbeddingIO in;
+	//private static final String FILE_PATH = "word-embeddings.txt"; //How to link the file path provided by the user.
+	private String fpath;
+	
 	// Constructor
 	public FileReaderUtility() {
-
+		this.in = new WordEmbeddingIO();
 	}
+	
+	//Method to check if the embedding file path was provided.
+	public String isFilePathProvided(String fpath) {
+		String embeddingFilePath = fpath;
+		
+		if(fpath == null) {
+			embeddingFilePath = in.getFilePath();
+		}
+		return embeddingFilePath;
+		
+	}
+
 
 	/*
 	 * The method reads the file and return the number of rows or columns.
@@ -29,7 +43,7 @@ public class FileReaderUtility {
 
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
 
-		try (BufferedReader in = new BufferedReader(new FileReader(FILE_PATH))) {
+		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
 
 			//If true, the method returns the number of columns in the first row. If false, the method returns the number of rows in the file.
 			if (checkColumns) 
@@ -55,7 +69,7 @@ public class FileReaderUtility {
 
 		String[] wordArray = new String[size];
 
-		BufferedReader in = new BufferedReader(new FileReader(FILE_PATH));
+		BufferedReader in = new BufferedReader(new FileReader(fpath));
 
 		int counter = 0;
 
@@ -81,7 +95,7 @@ public class FileReaderUtility {
 		
 		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
 		
-		BufferedReader in = new BufferedReader(new FileReader(FILE_PATH));
+		BufferedReader in = new BufferedReader(new FileReader(fpath));
 		
 		String line; // Current BufferReader line 
 		int row = 0; // Variable to keep track of the current row
