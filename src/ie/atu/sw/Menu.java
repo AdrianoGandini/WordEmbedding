@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Menu {
 
 	private WordEmbeddingIO io;
-	private FileReaderUtility eu;
+	private FileReaderUtility file;
 	private boolean menuRunnig;
 	private Scanner s;
 
@@ -19,7 +19,7 @@ public class Menu {
 	 */
 	public Menu() {
 		this.io = new WordEmbeddingIO();
-		this.eu = new FileReaderUtility();
+		this.file = new FileReaderUtility();
 		this.s = new Scanner(System.in);
 		this.menuRunnig = true;
 	}
@@ -75,9 +75,9 @@ public class Menu {
 		
 	switch (choice) {
 
-		case 1 -> io.filePath();
-		case 2 -> io.outputFile(eu.outputArray()); //not sure if suppose to call this specific method 
-		case 3 -> io.word();
+		case 1 -> io.getFilePath();
+		case 2 -> io.outputFile(file.outputArray()); //not sure if suppose to call this specific method 
+		case 3 -> io.getInputWord();
 		case 4 -> menuRunnig = false;
 		default -> System.out.println("Invalid Selction");
 

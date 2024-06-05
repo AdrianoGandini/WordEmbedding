@@ -98,60 +98,13 @@ public class FileReaderUtility {
 		return vector;
 	}
 
-	public String[] compereVectors(String[] wordArray, Double[] embeddingVector) {
-
-		// TODO Method to compare the inputed word vector with all words vectors in the
-		// provided file. Return an array with the top 10 similar words
-		
-		
-		//Those lines of code were create for a test. This method was not started.
-		String[] array = new String[10];
-		
-		for (int i = 0; i < 10; i ++) {
-			array[i] = wordArray[i];
-		}
-		
-		return array;
-	}
-	
-	//Method to return the array index of the user inputed word.
-	public int inputWordIndex() {
-		return 0;
-	}
-	
-	//Method to perform the dot calculation. Product of two vectors. 
-	public int dotCalculation() {
-		
-		return 0;
-	}
-	
-	//Method to calculate the Euclidean Distance.
-	public void euclideanDistance () {
-		
-	}
-	
-	
-	
 	/*
 	 * Method to return the processed data
 	 * TODO
 	 */
 	public String[] outputArray() {
-	    int rows = arraySize(false); // Get the number of rows with arraySize
-
-	    try {
-	        // Get the word array based on the number of rows
-	        String[] wordArray = embeddingWordsArray(rows);
-
-	        // Compare vectors and return the result
-	        return compereVectors(wordArray, null);
-	    } catch (IOException e) {
-	        // Log the exception (consider using a logging framework)
-	        System.err.println("An error occurred while processing the word array: " + e.getMessage());
-	        e.printStackTrace();
-	        
-	        // Return an empty array to avoid null pointer exceptions
-	        return new String[0];
-	    }
+		
+	     // Return an empty array to avoid null pointer exceptions
+	        return new String[0];    
 	}
 }

@@ -65,7 +65,7 @@ public class WordEmbeddingIO {
 	 * Method to get the user EmbeddingWord file path.
 	 */
 	
-	public String filePath() {
+	public String getFilePath() {
 
 		System.out.println("Enter the Word Embedding file path > ");
 
@@ -74,7 +74,7 @@ public class WordEmbeddingIO {
 
 	}
 
-	public String word() {
+	public String getInputWord() {
 		System.out.print("Enter the Word to be compared > ");
 		return s.next();
 	}
