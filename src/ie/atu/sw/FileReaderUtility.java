@@ -9,12 +9,12 @@ import java.io.IOException;
  * Class to hold all the logic used to work with the embedded file
  */
 
-public class EmbeddingUtility {
+public class FileReaderUtility {
 
 	private static final String FILE_PATH = "word-embeddings.txt"; //How to link the file path provided by the user.
 
 	// Constructor
-	public EmbeddingUtility() {
+	public FileReaderUtility() {
 
 	}
 
@@ -114,8 +114,26 @@ public class EmbeddingUtility {
 		return array;
 	}
 	
+	//Method to return the array index of the user inputed word.
+	public int inputWordIndex() {
+		return 0;
+	}
+	
+	//Method to perform the dot calculation. Product of two vectors. 
+	public int dotCalculation() {
+		
+		return 0;
+	}
+	
+	//Method to calculate the Euclidean Distance.
+	public void euclideanDistance () {
+		
+	}
+	
+	
+	
 	/*
-	 * Method to return the processed data.
+	 * Method to return the processed data
 	 * TODO
 	 */
 	public String[] outputArray() {

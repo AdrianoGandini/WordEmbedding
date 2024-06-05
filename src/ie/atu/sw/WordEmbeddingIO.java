@@ -47,7 +47,7 @@ public class WordEmbeddingIO {
 	 * @param fileName name of the output file
 	 */
 
-	public void outputFinal(String[] array) {
+	public void outputFile(String[] array) {
 
 		System.out.print("[INFO] Please provide the output file name > ");
 		String fileName = s.next() + ".txt"; // Add a text extension to the file name.
