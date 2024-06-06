@@ -9,6 +9,8 @@ import java.io.IOException;
  * Class to hold all the logic used to work with the embedded file
  */
 
+//TODO file path bug
+
 public class FileReaderUtility {
 	
 	private WordEmbeddingIO in;
@@ -19,18 +21,6 @@ public class FileReaderUtility {
 		this.in = new WordEmbeddingIO();
 	}
 	
-	//Method to check if the embedding file path was provided.
-	public String isFilePathProvided(String fpath) {
-		String embeddingFilePath = fpath;
-		
-		if(fpath == null) {
-			embeddingFilePath = in.getFilePath();
-		}
-		return embeddingFilePath;
-		
-	}
-
-
 	/*
 	 * Method to return the number of rows in the WordEmbedding file.
 	 */
@@ -64,7 +54,7 @@ public class FileReaderUtility {
 	 * @param size the variable defines the word array size.
 	 */
 
-	private String[] embeddingWordsArray(int size) throws IOException {
+	private String[] embeddingWordsArray(int size, String fpath) throws IOException {
 
 		String[] wordArray = new String[size];
 
@@ -90,7 +80,7 @@ public class FileReaderUtility {
 	 *  @param rows number of rows in the array
 	 *  @param columns number of columns in the array. 
 	 */
-	public Double[][] embeddingVectorArray(int rows, int columns) throws FileNotFoundException, IOException {
+	public Double[][] embeddingVectorArray(int rows, int columns, String fpath) throws FileNotFoundException, IOException {
 		
 		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
 		

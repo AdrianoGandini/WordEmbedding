@@ -75,10 +75,11 @@ public class Menu {
 		
 	switch (choice) {
 
-		case 1 -> io.getFilePath();
+		case 1 -> io.setFilePath();
 		case 2 -> io.outputFile(file.outputArray()); //not sure if suppose to call this specific method 
-		case 3 -> io.getInputWord();
+		case 3 -> io.setInputWord();
 		case 4 -> menuRunnig = false;
+		case 5 -> System.out.println(io.getFilepath()); 
 		default -> System.out.println("Invalid Selction");
 
 		}

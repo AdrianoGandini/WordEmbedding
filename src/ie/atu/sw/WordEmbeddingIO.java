@@ -7,23 +7,21 @@ import java.util.Scanner;
 
 public class WordEmbeddingIO {
 	private Scanner s;
+	private static String filepath;
+	private static String inputWord;
+	private static String outputFileName;
 
 	
 	
 	// Constructor 
 	public WordEmbeddingIO() {
 		this.s = new Scanner(System.in);
+		filepath = null;
+		inputWord = null;
+		outputFileName = null;
 	}
 
-	/*
-	 * Writes the contents of a specified array to a file. Each element of the array
-	 * is written in a text file adding ", " to improve readability.
-	 * 
-	 * @param words array of String 
-	 * @param fileName file name provided by user
-	 * @throws IOException if an I/O error occurs while writing to the file
-	 */
-
+	
 	private void fileWriter(String[] words, String fname) throws IOException {
 
 		BufferedWriter in = new BufferedWriter(new FileWriter(fname));//TODO Check if the file path is already set.
@@ -39,21 +37,14 @@ public class WordEmbeddingIO {
 		in.close();
 	}
 
-	/*
-	 * Method takes a the output file name from user and use as argument to
-	 * fileWritter method.
-	 * 
-	 * @param array array with the processed words 
-	 * @param fileName name of the output file
-	 */
-
 	public void outputFile(String[] array) {
 
-		System.out.print("[INFO] Please provide the output file name > ");
-		String fileName = s.next() + ".txt"; // Add a text extension to the file name.
-
+		if (outputFileName == null) {
+			System.out.println("Output file name not set");
+			setOutputFileName();
+		}		
 		try {
-			fileWriter(array, fileName);
+			fileWriter(array, outputFileName);
 		} catch (IOException e) {
 			System.err.println("Error file not created");
 			e.printStackTrace();
@@ -61,22 +52,32 @@ public class WordEmbeddingIO {
 
 	}
 
-	/*
-	 * Method to get the user EmbeddingWord file path.
-	 */
 	
-	public String getFilePath() {
-
+	public void setFilePath() {
 		System.out.println("Enter the Word Embedding file path > ");
-
-		String fpath = s.next();
-		return fpath;
-
+		filepath = s.next();
+	}
+	
+	public String getFilepath() {
+		return filepath;
 	}
 
-	public String getInputWord() {
+	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
-		return s.next();
+		inputWord = s.next();
 	}
-
+	
+	public String getInputWord() {
+		return inputWord;
+	}
+	
+	public void setOutputFileName() {
+		System.out.print("[INFO] Please provide the output file name > ");
+		outputFileName = s.next() + ".txt"; // Add a text extension to the file name.
+	}
+	
+	public String getOutputFilename() {
+		return outputFileName;
+	}
+	
 }
