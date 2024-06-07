@@ -11,8 +11,10 @@ public class EmbeddingAnalyzer {
 	}
 	
 	
-	public int inputWordIndex() {
+	public int inputWordIndex(String word) {
 		// TODO Method to return the array index of the user inputed word.
+		
+		
 		return 0;
 	}
 
