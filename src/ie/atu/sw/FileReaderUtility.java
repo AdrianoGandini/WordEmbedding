@@ -48,7 +48,7 @@ public class FileReaderUtility {
 
 	public String[] embeddingWordsArray(String fpath) throws IOException {
 
-		String[] wordArray = new String[getNumberOfColumns(fpath)];
+		String[] wordArray = new String[getNumberOfRows(fpath)];
 
 		BufferedReader in = new BufferedReader(new FileReader(fpath));
 

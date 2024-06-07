@@ -1,5 +1,7 @@
 package ie.atu.sw;
 
+import java.io.IOException;
+
 public class EmbeddingAnalyzer {
 
 	private Configuration config;
@@ -10,20 +12,26 @@ public class EmbeddingAnalyzer {
 		this.config = config;
 	}
 	
-	
-	public int inputWordIndex(String word) {
-		// TODO Method to return the array index of the user inputed word.
+	// Method to return the array index of the user inputed word.
+	private int inputWordIndex(String word, String[] wordArray) {
+
+		int index = 0;
 		
-		
-		return 0;
+		for (int i = 0; i < wordArray.length; i++) {
+			if (word.equals(wordArray[i])) {
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 
-	public int calculateDotProduct() {
+	private int calculateDotProduct() {
 		// TODO Method to perform the dot calculation. Product of two vectors.
 		return 0;
 	}
 
-	public void calculateEucledeanDistance() {
+	private void calculateEucledeanDistance() {
 		// TODO Method to calculate the Euclidean Distance.
 	}
 
@@ -35,5 +43,19 @@ public class EmbeddingAnalyzer {
 		return null;
 	}
 	
+	public static void main(String[] args) {
+		
+	}
+	public void test() {
+		try {
+			int index =inputWordIndex(config.getInputWord(), utility.embeddingWordsArray(config.getFilePath()));
+			 System.out.println("The word " + config.getInputWord() + " index is: " + index);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 }
