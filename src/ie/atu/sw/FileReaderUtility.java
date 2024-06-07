@@ -17,7 +17,7 @@ public class FileReaderUtility {
 	 * Method to return the number of rows in the WordEmbedding file.
 	 */
 	
-	public int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
+	private int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
 		
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
 		
@@ -33,7 +33,7 @@ public class FileReaderUtility {
 	/*
 	 * Method to return the number of columns in the WordEmbedding file.
 	 */
-	public int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
+	private int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
 			return in.readLine().split(",").length - 1;
 		}
@@ -46,9 +46,9 @@ public class FileReaderUtility {
 	 * @param size the variable defines the word array size.
 	 */
 
-	public String[] embeddingWordsArray(int size, String fpath) throws IOException {
+	public String[] embeddingWordsArray(String fpath) throws IOException {
 
-		String[] wordArray = new String[size];
+		String[] wordArray = new String[getNumberOfColumns(fpath)];
 
 		BufferedReader in = new BufferedReader(new FileReader(fpath));
 
@@ -74,7 +74,7 @@ public class FileReaderUtility {
 	 */
 	public Double[][] embeddingVectorArray(int rows, int columns, String fpath) throws FileNotFoundException, IOException {
 		
-		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
+		Double[][] vector = new Double[getNumberOfRows(fpath)][getNumberOfColumns(fpath)]; // Two dimensional array to hold the vectors.
 		
 		BufferedReader in = new BufferedReader(new FileReader(fpath));
 		
