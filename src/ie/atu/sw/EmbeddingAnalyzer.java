@@ -3,8 +3,10 @@ package ie.atu.sw;
 public class EmbeddingAnalyzer {
 
 	private Configuration config;
+	private FileReaderUtility utility;
 	
-	public EmbeddingAnalyzer(Configuration config) {
+	public EmbeddingAnalyzer(Configuration config, FileReaderUtility utility) {
+		this.utility =utility;
 		this.config = config;
 	}
 	
