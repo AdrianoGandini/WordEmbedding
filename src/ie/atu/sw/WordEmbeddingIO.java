@@ -7,18 +7,16 @@ import java.util.Scanner;
 
 public class WordEmbeddingIO {
 	private Scanner s;
-	private static String filepath;
-	private static String inputWord;
-	private static String outputFileName;
+	private Configuration config;
+	
 
 	
 	
 	// Constructor 
-	public WordEmbeddingIO() {
+	public WordEmbeddingIO(Configuration config) {
+		this.config = config;
 		this.s = new Scanner(System.in);
-		filepath = null;
-		inputWord = null;
-		outputFileName = null;
+		
 	}
 
 	
@@ -39,12 +37,12 @@ public class WordEmbeddingIO {
 
 	public void outputFile(String[] array) {
 
-		if (outputFileName == null) {
+		if (config.getOutputFileName() == null) {
 			System.out.println("Output file name not set");
 			setOutputFileName();
 		}		
 		try {
-			fileWriter(array, outputFileName);
+			fileWriter(array, config.getOutputFileName());
 		} catch (IOException e) {
 			System.err.println("Error file not created");
 			e.printStackTrace();
@@ -55,29 +53,38 @@ public class WordEmbeddingIO {
 	
 	public void setFilePath() {
 		System.out.println("Enter the Word Embedding file path > ");
-		filepath = s.next();
+		config.setFilePath(s.next());
 	}
 	
 	public String getFilepath() {
-		return filepath;
+		return config.getFilePath();
 	}
 
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
-		inputWord = s.next();
+		config.setInputWord(s.next());
 	}
 	
 	public String getInputWord() {
-		return inputWord.toLowerCase(); //Converting the user input to lower case.
+		return config.getInputWord().toLowerCase(); //Converting the user input to lower case.
 	}
 	
 	public void setOutputFileName() {
 		System.out.print("[INFO] Please provide the output file name > ");
-		outputFileName = s.next() + ".txt"; // Add a text extension to the file name.
+		config.setOutputFileName(s.next() + ".txt"); // Add a text extension to the file name.
 	}
 	
 	public String getOutputFilename() {
-		return outputFileName;
+		return config.getOutputFileName();
+	}
+	
+	public void configSettings() {
+		System.out.println("************************************************");
+		System.out.println("File path: " + config.getFilePath());
+		System.out.println("Input word: " + config.getInputWord());
+		System.out.println("Output File Name: " + config.getOutputFileName());
+		System.out.println("************************************************");
+		
 	}
 	
 }

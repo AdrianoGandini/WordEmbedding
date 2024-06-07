@@ -3,11 +3,9 @@ package ie.atu.sw;
 public class EmbeddingCalculator {
 
 	FileReaderUtility file;
-	WordEmbeddingIO in;
 	
 	public EmbeddingCalculator() {
 		this.file = new FileReaderUtility();
-		this.in = new WordEmbeddingIO();
 	}
 	
 	

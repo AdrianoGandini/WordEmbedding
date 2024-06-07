@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Menu {
 
 	private WordEmbeddingIO io;
+	private Configuration config;
 	private boolean menuRunnig;
 	private Scanner s;
 
@@ -17,7 +18,8 @@ public class Menu {
 	 *  Constructor initiating the the class variables.
 	 */
 	public Menu() {
-		this.io = new WordEmbeddingIO();
+		this.config = new Configuration();
+		this.io = new WordEmbeddingIO(config);
 		this.s = new Scanner(System.in);
 		this.menuRunnig = true;
 	}
@@ -57,6 +59,7 @@ public class Menu {
 		System.out.println("(3) Enter a word or a text");
 		System.out.println("(?) Configure Options");
 		System.out.println("(?) Optional Extras...");
+		System.out.println("(5) Show configuration settings");
 		System.out.println("(4) Quit");
 		
 		System.out.println(ConsoleColour.BLACK_BACKGROUND_BRIGHT);
@@ -78,7 +81,7 @@ public class Menu {
 		case 2 -> io.outputFile(new String[0]); //it is like this just to compile 
 		case 3 -> io.setInputWord();
 		case 4 -> menuRunnig = false;
-		case 5 -> System.out.println(io.getFilepath()); 
+		case 5 -> io.configSettings(); 
 		default -> System.out.println("Invalid Selction");
 
 		}
