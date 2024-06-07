@@ -1,13 +1,12 @@
 package ie.atu.sw;
 
-public class EmbeddingCalculator {
+public class EmbeddingAnalyzer {
 
-	FileReaderUtility file;
+	private Configuration config;
 	
-	public EmbeddingCalculator() {
-		this.file = new FileReaderUtility();
+	public EmbeddingAnalyzer(Configuration config) {
+		this.config = config;
 	}
-	
 	
 	
 	public int inputWordIndex() {
@@ -15,12 +14,12 @@ public class EmbeddingCalculator {
 		return 0;
 	}
 
-	public int dotCalculation() {
+	public int calculateDotProduct() {
 		// TODO Method to perform the dot calculation. Product of two vectors.
 		return 0;
 	}
 
-	public void euclideanDistance() {
+	public void calculateEucledeanDistance() {
 		// TODO Method to calculate the Euclidean Distance.
 	}
 
@@ -31,5 +30,6 @@ public class EmbeddingCalculator {
 
 		return null;
 	}
-
+	
+	
 }

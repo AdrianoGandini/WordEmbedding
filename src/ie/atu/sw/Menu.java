@@ -57,10 +57,12 @@ public class Menu {
 		System.out.println("(1) Specify Embedding File");
 		System.out.println("(2) Specify a Output File name");
 		System.out.println("(3) Enter a word or a text");
-		System.out.println("(?) Configure Options");
-		System.out.println("(?) Optional Extras...");
+		System.out.println("(4) Processed file");	
 		System.out.println("(5) Show configuration settings");
-		System.out.println("(4) Quit");
+		System.out.println("(6) Quit");
+		System.out.println("(?) Configure Options");
+		System.out.println("(?) Optional Extras...");	
+		
 		
 		System.out.println(ConsoleColour.BLACK_BACKGROUND_BRIGHT);
 		System.out.println("Slelect Option [1 - 4 > ");
@@ -78,10 +80,12 @@ public class Menu {
 	switch (choice) {
 
 		case 1 -> io.setFilePath();
-		case 2 -> io.outputFile(new String[0]); //it is like this just to compile 
+		case 2 -> io.setOutputFileName();
 		case 3 -> io.setInputWord();
-		case 4 -> menuRunnig = false;
-		case 5 -> io.configSettings(); 
+		case 4 -> io.outputFile(null);
+		case 5 -> io.configSettings();
+		case 6 -> menuRunnig = false;
+		 
 		default -> System.out.println("Invalid Selction");
 
 		}

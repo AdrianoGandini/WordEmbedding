@@ -80,6 +80,7 @@ public class WordEmbeddingIO {
 	
 	public void configSettings() {
 		System.out.println("************************************************");
+		System.out.println("*            Configuration Settings            *");
 		System.out.println("File path: " + config.getFilePath());
 		System.out.println("Input word: " + config.getInputWord());
 		System.out.println("Output File Name: " + config.getOutputFileName());
