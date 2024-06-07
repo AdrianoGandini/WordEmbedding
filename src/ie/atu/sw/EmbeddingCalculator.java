@@ -2,6 +2,16 @@ package ie.atu.sw;
 
 public class EmbeddingCalculator {
 
+	FileReaderUtility file;
+	WordEmbeddingIO in;
+	
+	public EmbeddingCalculator() {
+		this.file = new FileReaderUtility();
+		this.in = new WordEmbeddingIO();
+	}
+	
+	
+	
 	public int inputWordIndex() {
 		// TODO Method to return the array index of the user inputed word.
 		return 0;

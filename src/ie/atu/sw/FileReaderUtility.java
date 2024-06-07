@@ -9,23 +9,15 @@ import java.io.IOException;
  * Class to hold all the logic used to work with the embedded file
  */
 
-//TODO file path bug
 
 public class FileReaderUtility {
 	
-	private WordEmbeddingIO in;
-	
-	
-	// Constructor
-	public FileReaderUtility() {
-		this.in = new WordEmbeddingIO();
-	}
 	
 	/*
 	 * Method to return the number of rows in the WordEmbedding file.
 	 */
 	
-	private int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
+	public int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
 		
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
 		
@@ -41,7 +33,7 @@ public class FileReaderUtility {
 	/*
 	 * Method to return the number of columns in the WordEmbedding file.
 	 */
-	private int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
+	public int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
 			return in.readLine().split(",").length - 1;
 		}
@@ -54,7 +46,7 @@ public class FileReaderUtility {
 	 * @param size the variable defines the word array size.
 	 */
 
-	private String[] embeddingWordsArray(int size, String fpath) throws IOException {
+	public String[] embeddingWordsArray(int size, String fpath) throws IOException {
 
 		String[] wordArray = new String[size];
 
@@ -101,13 +93,5 @@ public class FileReaderUtility {
 		return vector;
 	}
 
-	/*
-	 * Method to return the processed data
-	 * TODO
-	 */
-	public String[] outputArray() {
-		
-	     // Return an empty array to avoid null pointer exceptions
-	        return new String[0];    
-	}
+	
 }

@@ -68,7 +68,7 @@ public class WordEmbeddingIO {
 	}
 	
 	public String getInputWord() {
-		return inputWord;
+		return inputWord.toLowerCase(); //Converting the user input to lower case.
 	}
 	
 	public void setOutputFileName() {

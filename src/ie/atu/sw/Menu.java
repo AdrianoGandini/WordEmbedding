@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Menu {
 
 	private WordEmbeddingIO io;
-	private FileReaderUtility file;
 	private boolean menuRunnig;
 	private Scanner s;
 
@@ -19,7 +18,6 @@ public class Menu {
 	 */
 	public Menu() {
 		this.io = new WordEmbeddingIO();
-		this.file = new FileReaderUtility();
 		this.s = new Scanner(System.in);
 		this.menuRunnig = true;
 	}
@@ -39,6 +37,7 @@ public class Menu {
 			handleOptions(choice);
 
 		}
+		s.close();
 	}
 
 	/*
@@ -76,7 +75,7 @@ public class Menu {
 	switch (choice) {
 
 		case 1 -> io.setFilePath();
-		case 2 -> io.outputFile(file.outputArray()); //not sure if suppose to call this specific method 
+		case 2 -> io.outputFile(new String[0]); //it is like this just to compile 
 		case 3 -> io.setInputWord();
 		case 4 -> menuRunnig = false;
 		case 5 -> System.out.println(io.getFilepath()); 
