@@ -89,7 +89,7 @@ public class Menu {
 		case 4 -> io.outputFile(null);
 		case 5 -> io.configSettings();
 		case 6 -> menuRunnig = false;
-		case 7 -> analyzer.test();	 
+		case 7 -> analyzer.test();	 //Created to test inputWordIndex method in EmbeddingAnalyzer.
 		default -> System.out.println("Invalid Selction");
 
 		}

@@ -72,9 +72,12 @@ public class FileReaderUtility {
 	 *  @param rows number of rows in the array
 	 *  @param columns number of columns in the array. 
 	 */
-	public Double[][] embeddingVectorArray(int rows, int columns, String fpath) throws FileNotFoundException, IOException {
+	public Double[][] embeddingVectorArray(String fpath) throws FileNotFoundException, IOException {
 		
-		Double[][] vector = new Double[getNumberOfRows(fpath)][getNumberOfColumns(fpath)]; // Two dimensional array to hold the vectors.
+		int rows = getNumberOfRows(fpath);
+		int columns = getNumberOfColumns(fpath);
+		
+		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
 		
 		BufferedReader in = new BufferedReader(new FileReader(fpath));
 		
