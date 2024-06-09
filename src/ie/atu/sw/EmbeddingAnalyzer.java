@@ -4,12 +4,12 @@ import java.io.IOException;
 
 public class EmbeddingAnalyzer {
 
-	private Configuration config;
+	private WordEmbeddingIO io;
 	private FileReaderUtility utility;
 	
-	public EmbeddingAnalyzer(Configuration config, FileReaderUtility utility) {
+	public EmbeddingAnalyzer(WordEmbeddingIO io, FileReaderUtility utility) {
 		this.utility =utility;
-		this.config = config;
+		this.io = io;
 	}
 	
 	// Method to return the array index of the user inputed word.
@@ -48,8 +48,8 @@ public class EmbeddingAnalyzer {
 	}
 	public void test() {
 		try {
-			int index =inputWordIndex(config.getInputWord(), utility.embeddingWordsArray(config.getFilePath()));
-			 System.out.println("The word " + config.getInputWord() + " index is: " + index);
+			int index =inputWordIndex(io.getInputWord(), utility.embeddingWordsArray(io.getFilepath()));
+			 System.out.println("The word " + io.getInputWord() + " index is: " + index);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

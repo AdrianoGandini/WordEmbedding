@@ -52,7 +52,7 @@ public class WordEmbeddingIO {
 
 	
 	public void setFilePath() {
-		System.out.println("Enter the Word Embedding file path > ");
+		System.out.println("[INFO] Enter the Word Embedding file path (with extension) > ");
 		config.setFilePath(s.next());
 	}
 	

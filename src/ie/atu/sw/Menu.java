@@ -23,7 +23,7 @@ public class Menu {
 		this.config = new Configuration();
 		this.io = new WordEmbeddingIO(config);
 		this.file = new FileReaderUtility();
-		this.analyzer = new EmbeddingAnalyzer(config, file);
+		this.analyzer = new EmbeddingAnalyzer(io, file);
 		this.s = new Scanner(System.in);
 		this.menuRunnig = true;
 	}

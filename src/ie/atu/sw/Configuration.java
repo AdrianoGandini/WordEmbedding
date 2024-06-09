@@ -8,7 +8,7 @@ public class Configuration {
 	
 	
 	public String getFilePath() {
-		return filePath + ".txt"; // Most be changes *****
+		return filePath;
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
