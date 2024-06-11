@@ -66,28 +66,39 @@ public class EmbeddingAnalyzer {
 	 */
 	private double calculateCosineDistance(double vect_A[], double vect_B[]) {
 		
-		double dotProduct = calculateDotProduct(vect_A, vect_B);
-		
-		double magnitude = calculateMagnitude(vect_A, vect_B);
-		
+		double dotProduct = calculateDotProduct(vect_A, vect_B);		
+		double magnitude = calculateMagnitude(vect_A, vect_B);		
 		return dotProduct / magnitude; //Return the cosine distance.
 
 	}
 	
+	
+	
 	// Method to compare the inputed word vector with all words vectors in the
 	// provided file. Return an array with the top 10 similar words
 	
-	public String[] compereVectors(String[] wordArray, Double[][] embeddingVector) {
+	public String[] compereVectors() throws IOException {
+		
+		String word = io.getInputWord(); //Word from user input. //User word input
+		
+		String[] wordArray = utility.embeddingWordsArray(io.getFilepath()); // Get the word array from word embedding file.
+		Double[][] vectorArray = utility.embeddingVectorArray(io.getFilepath()); // Get the vectors array from word embedding file.
+		
+		int inputWordIndex = inputWordIndex(word, wordArray ); // Select the index of user word input in the word array.
+		
+		Double[] inputWordVector = inputWordVector(inputWordIndex, vectorArray); //Input word vector array.
 		
 		
 
 		return null;
 	}
 	
-	public double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
+	
+	
+	public Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
 		
 		//Array to hold the input word vector.
-		double[] inputWordVector = new double[embeddingVector[0].length];
+		Double[] inputWordVector = new Double[embeddingVector[0].length];
 		
 		for (int i = 0; i < embeddingVector[0].length; i ++) {
 			inputWordVector[i] = embeddingVector[wordIndex][i];
@@ -96,7 +107,5 @@ public class EmbeddingAnalyzer {
 	}
 	
 	//Need to compare the input word vector array with all rows and return the result.
-	
-	
 	
 }

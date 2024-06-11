@@ -1,5 +1,6 @@
 package ie.atu.sw;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -40,8 +41,9 @@ public class Menu {
 			
 			int choice = s.nextInt();
 			
-			handleOptions(choice);
-
+			
+				handleOptions(choice);
+			
 		}
 		s.close();
 	}
@@ -78,7 +80,7 @@ public class Menu {
 	 * 
 	 * @param choice the user's menu selection.
 	 */
-	private void handleOptions(int choice) {
+	private void handleOptions(int choice){
 
 		
 	switch (choice) {
@@ -89,7 +91,7 @@ public class Menu {
 		case 4 -> io.outputFile(null);
 		case 5 -> io.configSettings();
 		case 6 -> menuRunnig = false;
-		case 7 -> analyzer.test();	 //Created to test inputWordIndex method in EmbeddingAnalyzer.
+		//case 7 -> analyzer.compereVectors();
 		default -> System.out.println("Invalid Selction");
 
 		}
