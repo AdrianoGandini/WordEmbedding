@@ -34,7 +34,7 @@ public class EmbeddingAnalyzer {
 	 * 
 	 * font = https://www.geeksforgeeks.org/program-dot-product-cross-product-two-vector/
 	 */
-	private double calculateDotProduct(double vect_A[], double vect_B[]) {
+	private Double calculateDotProduct(Double vect_A[], Double vect_B[]) {
 		
 		double product = 0;
 		
@@ -47,7 +47,7 @@ public class EmbeddingAnalyzer {
 	/*
 	 * Method to calculate the magnitude. The root sum of the squares of two vectors;
 	 */
-	private double calculateMagnitude(double vectorA[], double vectorB[]) {
+	private Double calculateMagnitude(Double vectorA[], Double vectorB[]) {
 		
 		double SquaresSumVectorA = 0;
 		double SquaresSumVectorB = 0;
@@ -64,7 +64,7 @@ public class EmbeddingAnalyzer {
 	 * Method to calculate the Cosine Distance can be calculated by computing the dot product of the two vectors and then dividing this number by product of the magnitudes
 	 *  The method will return a value between 1, max similarity  and 0 max dissimilar. 
 	 */
-	private double calculateCosineDistance(double vect_A[], double vect_B[]) {
+	private Double calculateCosineDistance(Double vect_A[], Double vect_B[]) {
 		
 		double dotProduct = calculateDotProduct(vect_A, vect_B);		
 		double magnitude = calculateMagnitude(vect_A, vect_B);		
@@ -93,7 +93,7 @@ public class EmbeddingAnalyzer {
 		
 		for (int i = 0; i < vectorArray.length; i++) {
 			for (int j = 0; j < vectorArray[0].length; j++) {
-				fileVector[j] = vectorArray[i][j];
+				//fileVector[j] = calculateCosineDistance(vectorArray[j], vectorArray[i][j]);
 			}
 		}
 		
