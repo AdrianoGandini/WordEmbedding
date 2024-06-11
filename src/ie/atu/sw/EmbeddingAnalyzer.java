@@ -80,14 +80,22 @@ public class EmbeddingAnalyzer {
 	public String[] compereVectors() throws IOException {
 		
 		String word = io.getInputWord(); //Word from user input. //User word input
+		String fpath = io.getFilepath();
 		
-		String[] wordArray = utility.embeddingWordsArray(io.getFilepath()); // Get the word array from word embedding file.
-		Double[][] vectorArray = utility.embeddingVectorArray(io.getFilepath()); // Get the vectors array from word embedding file.
+		String[] wordArray = utility.embeddingWordsArray(fpath); // Get the word array from word embedding file.
+		Double[][] vectorArray = utility.embeddingVectorArray(fpath); // Get the vectors array from word embedding file.
 		
 		int inputWordIndex = inputWordIndex(word, wordArray ); // Select the index of user word input in the word array.
 		
 		Double[] inputWordVector = inputWordVector(inputWordIndex, vectorArray); //Input word vector array.
 		
+		Double[] fileVector = new Double[vectorArray[0].length];
+		
+		for (int i = 0; i < vectorArray.length; i++) {
+			for (int j = 0; j < vectorArray[0].length; j++) {
+				fileVector[j] = vectorArray[i][j];
+			}
+		}
 		
 
 		return null;
