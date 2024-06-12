@@ -1,6 +1,5 @@
 package ie.atu.sw;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class EmbeddingAnalyzer {
@@ -77,30 +76,34 @@ public class EmbeddingAnalyzer {
 	// Method to compare the inputed word vector with all words vectors in the
 	// provided file. Return an array with the top 10 similar words
 	
-	public String[] compereVectors() throws IOException {
+	public void compereVectors() throws IOException{
 		
-		String word = io.getInputWord(); //Word from user input. //User word input
-		String fpath = io.getFilepath();
+		String word = io.getInputWord(); //Word from user input.
+		String fpath = io.getFilepath(); //Word Embedding file path.
 		
 		String[] wordArray = utility.embeddingWordsArray(fpath); // Get the word array from word embedding file.
 		Double[][] vectorArray = utility.embeddingVectorArray(fpath); // Get the vectors array from word embedding file.
 		
-		int inputWordIndex = inputWordIndex(word, wordArray ); // Select the index of user word input in the word array.
+		int wordIndex = inputWordIndex(word, wordArray ); // Select the index of user word input in the word array.
 		
-		Double[] inputWordVector = inputWordVector(inputWordIndex, vectorArray); //Input word vector array.
+		Double[] inputWordVector = inputWordVector(wordIndex, vectorArray); //Input word vector array.
 		
-		Double[] fileVector = new Double[vectorArray[0].length];
+		
+		//TODO bug is related to the nested loop (search to learn more)
+		
+		Double[] cosineDistanceArray = new Double[vectorArray.length];
 		
 		for (int i = 0; i < vectorArray.length; i++) {
 			for (int j = 0; j < vectorArray[0].length; j++) {
-				//fileVector[j] = calculateCosineDistance(vectorArray[j], vectorArray[i][j]);
+				
+				cosineDistanceArray[j] = calculateCosineDistance(inputWordVector, vectorArray[i]);				
 			}
+	
 		}
-		
-
-		return null;
 	}
 	
+	
+	//Find perform binary sort to organize the data in descending order.
 	
 	
 	public Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
