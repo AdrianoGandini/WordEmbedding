@@ -98,9 +98,9 @@ public class EmbeddingAnalyzer {
 		return cosineDistanceArray;
 	}
 
-	// Method to compare the inputed word vector with all words vectors in the
-	// provided file. Return an array with the top 10 similar words
-
+	
+	
+  
 	public Double[] computeCosineDistances() throws IOException {
 
 		String word = io.getInputWord(); // Word from user input.
@@ -120,6 +120,6 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	// Find perform binary sort to organize the data in descending order.
-
+	// Find perform binary sort to organize the data in descending order. 
+	// provided file. Return an array with the top 10 similar words
 }
