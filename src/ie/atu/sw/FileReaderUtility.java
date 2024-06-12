@@ -9,18 +9,16 @@ import java.io.IOException;
  * Class to hold all the logic used to work with the embedded file
  */
 
-
 public class FileReaderUtility {
-	
-	
+
 	/*
 	 * Method to return the number of rows in the WordEmbedding file.
 	 */
-	
+
 	private int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
-		
+
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
-		
+
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
 			while (in.readLine() != null) {
 				rowsCounter++;
@@ -29,7 +27,7 @@ public class FileReaderUtility {
 		}
 		return rowsCounter;
 	}
-	
+
 	/*
 	 * Method to return the number of columns in the WordEmbedding file.
 	 */
@@ -37,7 +35,7 @@ public class FileReaderUtility {
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
 			return in.readLine().split(",").length - 1;
 		}
-				
+
 	}
 
 	/*
@@ -69,32 +67,32 @@ public class FileReaderUtility {
 	/*
 	 * The method creates an two dimensional array that contains the vectors
 	 * 
-	 *  @param rows number of rows in the array
-	 *  @param columns number of columns in the array. 
+	 * @param rows number of rows in the array
+	 * 
+	 * @param columns number of columns in the array.
 	 */
 	public Double[][] embeddingVectorArray(String fpath) throws FileNotFoundException, IOException {
-		
+
 		int rows = getNumberOfRows(fpath);
 		int columns = getNumberOfColumns(fpath);
-		
+
 		Double[][] vector = new Double[rows][columns]; // Two dimensional array to hold the vectors.
-		
+
 		BufferedReader in = new BufferedReader(new FileReader(fpath));
-		
-		String line; // Current BufferReader line 
+
+		String line; // Current BufferReader line
 		int row = 0; // Variable to keep track of the current row
 
 		while ((line = in.readLine()) != null) {
 			String[] embeddingLine = line.split(",");
-			
+
 			for (int j = 0; j < columns; j++) {
 				vector[row][j] = Double.parseDouble(embeddingLine[j + 1]);
-			}			
+			}
 			row++;
-		}		
+		}
 		in.close();
 		return vector;
 	}
 
-	
 }
