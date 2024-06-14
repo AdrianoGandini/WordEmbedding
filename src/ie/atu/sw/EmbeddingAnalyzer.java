@@ -28,6 +28,7 @@ public class EmbeddingAnalyzer {
 		return index;
 	}
 
+	// Comment
 	public Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
 
 		// Array to hold the input word vector.
@@ -86,22 +87,20 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	public Double[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
+	public CosineDistances[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
 
-		Double[] cosineDistanceArray = new Double[vectorArray.length];
+		CosineDistances[] cosine = new CosineDistances[vectorArray.length];
 
 		for (int i = 0; i < vectorArray.length; i++) {
 
-			cosineDistanceArray[i] = computeCosineSimilarity(inputWordVector, vectorArray[i]);
+			CosineDistances s = new CosineDistances(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
+			cosine[i] = s;
 		}
 
-		return cosineDistanceArray;
+		return cosine;
 	}
 
-	
-	
-  
-	public Double[] computeCosineDistances() throws IOException {
+	public CosineDistances[] computeCosineDistances() throws IOException {
 
 		String word = io.getInputWord(); // Word from user input.
 		String fpath = io.getFilepath(); // Word Embedding file path.
@@ -120,6 +119,6 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	// Find perform binary sort to organize the data in descending order. 
+	// Find perform Bubble sort to organize the data in descending order.
 	// provided file. Return an array with the top 10 similar words
 }
