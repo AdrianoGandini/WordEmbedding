@@ -121,6 +121,21 @@ public class EmbeddingAnalyzer {
 
 	}
 
+	public CosineDistances[] bubbleSort(CosineDistances[] scoreArray) {
+
+		// Bubble sort
+
+		for (int i = 0; i < scoreArray.length; i++) {
+			for (int j = 0; j < scoreArray.length - i - 1; j++) {
+				if (scoreArray[j].cosineDistance() > scoreArray[j + 1].cosineDistance()) {
+					CosineDistances temp = scoreArray[j];
+					scoreArray[j] = scoreArray[j + 1];
+					scoreArray[j + 1] = temp;
+				}
+			}
+		}
+		return scoreArray;
+	}
 	// Find perform Bubble sort to organize the data in descending order.
 	// provided file. Return an array with the top 10 similar words
 }
