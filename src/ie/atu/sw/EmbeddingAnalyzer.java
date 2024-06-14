@@ -28,7 +28,7 @@ public class EmbeddingAnalyzer {
 		return index;
 	}
 
-	public Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
+	private Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
 
 		// Array to hold the input word vector.
 		Double[] inputWordVector = new Double[embeddingVector[0].length];
@@ -86,7 +86,7 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	public Double[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
+	private Double[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
 
 		Double[] cosineDistanceArray = new Double[vectorArray.length];
 
