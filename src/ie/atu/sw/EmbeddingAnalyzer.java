@@ -28,12 +28,8 @@ public class EmbeddingAnalyzer {
 		return index;
 	}
 
-<<<<<<< HEAD
 	// Comment
 	public Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
-=======
-	private Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
->>>>>>> edf5d4bde8e905ef4d0ccfe0be5f973e2fb99b47
 
 		// Array to hold the input word vector.
 		Double[] inputWordVector = new Double[embeddingVector[0].length];
@@ -91,12 +87,10 @@ public class EmbeddingAnalyzer {
 
 	}
 
-<<<<<<< HEAD
-	public CosineDistances[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
-=======
-	private Double[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
->>>>>>> edf5d4bde8e905ef4d0ccfe0be5f973e2fb99b47
 
+	
+	public CosineDistances[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
+	
 		CosineDistances[] cosine = new CosineDistances[vectorArray.length];
 
 		for (int i = 0; i < vectorArray.length; i++) {
@@ -104,10 +98,10 @@ public class EmbeddingAnalyzer {
 			CosineDistances s = new CosineDistances(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
 			cosine[i] = s;
 		}
-
 		return cosine;
 	}
 
+	
 	public CosineDistances[] computeCosineDistances() throws IOException {
 
 		String word = io.getInputWord(); // Word from user input.
