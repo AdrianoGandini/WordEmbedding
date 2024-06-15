@@ -2,7 +2,7 @@ package ie.atu.sw;
 
 public class Configuration {
 
-	private String filePath;
+	private String filePath = "./word-embeddings.txt";
 	private String inputWord;
 	private String outputFileName;
 	

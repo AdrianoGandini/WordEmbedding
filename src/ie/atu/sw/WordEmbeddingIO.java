@@ -63,6 +63,7 @@ public class WordEmbeddingIO {
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
 		config.setInputWord(s.next());
+		
 	}
 	
 	public String getInputWord() {

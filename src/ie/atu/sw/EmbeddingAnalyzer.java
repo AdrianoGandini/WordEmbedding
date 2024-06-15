@@ -137,17 +137,64 @@ public class EmbeddingAnalyzer {
 	// Find perform Bubble sort to organize the data in descending order.
 	// provided file. Return an array with the top 10 similar words
 	
+	
+	public CosineDistance[] mergeSort(CosineDistance[] scoreArray) {
+        if (scoreArray.length <= 1) {
+            return scoreArray;
+        }
+
+        int mid = scoreArray.length / 2;
+        CosineDistance[] left = new CosineDistance[mid];
+        CosineDistance[] right = new CosineDistance[scoreArray.length - mid];
+
+        System.arraycopy(scoreArray, 0, left, 0, mid);
+        System.arraycopy(scoreArray, mid, right, 0, scoreArray.length - mid);
+
+        return merge(mergeSort(left), mergeSort(right));
+    }
+
+    private CosineDistance[] merge(CosineDistance[] left, CosineDistance[] right) {
+        CosineDistance[] result = new CosineDistance[left.length + right.length];
+        int i = 0, j = 0, k = 0;
+
+        while (i < left.length && j < right.length) {
+            if (left[i].cosineDistance() >= right[j].cosineDistance()) {
+                result[k++] = left[i++];
+            } else {
+                result[k++] = right[j++];
+            }
+        }
+
+        while (i < left.length) {
+            result[k++] = left[i++];
+        }
+
+        while (j < right.length) {
+            result[k++] = right[j++];
+        }
+
+        return result;
+    }
+
+	
+	
+	
+	
+	
 	public void test() {
 		
 		
+		long start = System.currentTimeMillis();
 		
 		try {
 			String[] wordArray = utility.embeddingWordsArray(io.getFilepath());
 			CosineDistance[] myTestArray = computeCosineDistances();
 			
 			CosineDistance[] myTestArraySorted = bubbleSort(myTestArray);
+			//CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
 			
-			for (int i = 0; i < 50; i++) {
+			
+			for (int i = 0; i < 10; i++) {
 				CosineDistance cosine = myTestArraySorted[i];				
 				System.out.println("Position: " + i + "; cosine: "+ cosine.cosineDistance() + " index: " + cosine.index() + " word: " + wordArray[cosine.index()]);
 			}
@@ -157,7 +204,10 @@ public class EmbeddingAnalyzer {
 			e.printStackTrace();
 		}
 		
+		long finish = System.currentTimeMillis();
+		long timeElapsed = finish - start;
 		
+		System.out.println("The aplication time was: " + timeElapsed);
 	}
 	
 }
