@@ -12,20 +12,18 @@ public class EmbeddingAnalyzer {
 		this.io = io;
 	}
 
+	//TODO The method logic is not working !!!!
 	// Method to return the array index of the user inputed word.
 	private int inputWordIndex(String word, String[] wordArray) {
 
-		int index = 0;
-
 		for (int i = 0; i < wordArray.length; i++) {
 			if (word.equals(wordArray[i])) {
-				index = i;
-				break;
-			} else {
-				System.out.println("The word " + word + "is not present in the " + io.getFilepath() + " file.");
-			}
+				return i;
+			}			
 		}
-		return index;
+		
+		System.out.println("The word: " + word + " is not present in the > " + io.getFilepath() + " < file.");				
+		return -1;
 	}
 
 	// Comment
@@ -89,20 +87,20 @@ public class EmbeddingAnalyzer {
 
 
 	
-	public CosineDistances[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
+	public CosineDistance[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
 	
-		CosineDistances[] cosine = new CosineDistances[vectorArray.length];
+		CosineDistance[] cosine = new CosineDistance[vectorArray.length];
 
 		for (int i = 0; i < vectorArray.length; i++) {
 
-			CosineDistances s = new CosineDistances(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
+			CosineDistance s = new CosineDistance(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
 			cosine[i] = s;
 		}
 		return cosine;
 	}
 
 	
-	public CosineDistances[] computeCosineDistances() throws IOException {
+	public CosineDistance[] computeCosineDistances() throws IOException {
 
 		String word = io.getInputWord(); // Word from user input.
 		String fpath = io.getFilepath(); // Word Embedding file path.
@@ -121,14 +119,14 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	public CosineDistances[] bubbleSort(CosineDistances[] scoreArray) {
+	public CosineDistance[] bubbleSort(CosineDistance[] scoreArray) {
 
 		// Bubble sort
 
 		for (int i = 0; i < scoreArray.length; i++) {
 			for (int j = 0; j < scoreArray.length - i - 1; j++) {
-				if (scoreArray[j].cosineDistance() > scoreArray[j + 1].cosineDistance()) {
-					CosineDistances temp = scoreArray[j];
+				if (scoreArray[j].cosineDistance() < scoreArray[j + 1].cosineDistance()) {
+					CosineDistance temp = scoreArray[j];
 					scoreArray[j] = scoreArray[j + 1];
 					scoreArray[j + 1] = temp;
 				}
@@ -138,4 +136,28 @@ public class EmbeddingAnalyzer {
 	}
 	// Find perform Bubble sort to organize the data in descending order.
 	// provided file. Return an array with the top 10 similar words
+	
+	public void test() {
+		
+		
+		
+		try {
+			String[] wordArray = utility.embeddingWordsArray(io.getFilepath());
+			CosineDistance[] myTestArray = computeCosineDistances();
+			
+			CosineDistance[] myTestArraySorted = bubbleSort(myTestArray);
+			
+			for (int i = 0; i < 50; i++) {
+				CosineDistance cosine = myTestArraySorted[i];				
+				System.out.println("Position: " + i + "; cosine: "+ cosine.cosineDistance() + " index: " + cosine.index() + " word: " + wordArray[cosine.index()]);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 }

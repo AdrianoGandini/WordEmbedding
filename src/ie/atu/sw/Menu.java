@@ -96,7 +96,7 @@ public class Menu {
 		case 4 -> io.outputFile(null);
 		case 5 -> io.configSettings();
 		case 6 -> menuRunnig = false;
-		//case 7 -> analyzer.compereVectors();
+		case 7 -> analyzer.test();
 		default -> System.out.println("Invalid Selction");
 
 		}
