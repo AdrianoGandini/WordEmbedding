@@ -12,17 +12,22 @@ public class EmbeddingAnalyzer {
 		this.io = io;
 	}
 
-	//TODO The method logic is not working !!!!
+	// TODO part of take multiple words refactoring process.
+	// Method to handle the user word/ words input.
+	public String[] wordInputArray() {
+		return io.getInputWord().split(" ");
+	}
+
 	// Method to return the array index of the user inputed word.
 	private int inputWordIndex(String word, String[] wordArray) {
 
 		for (int i = 0; i < wordArray.length; i++) {
 			if (word.equals(wordArray[i])) {
 				return i;
-			}			
+			}
 		}
-		
-		System.out.println("The word: " + word + " is not present in the > " + io.getFilepath() + " < file.");				
+
+		System.out.println("The word: " + word + " is not present in the > " + io.getFilepath() + " < file.");
 		return -1;
 	}
 
@@ -85,10 +90,8 @@ public class EmbeddingAnalyzer {
 
 	}
 
-
-	
 	public CosineDistance[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
-	
+
 		CosineDistance[] cosine = new CosineDistance[vectorArray.length];
 
 		for (int i = 0; i < vectorArray.length; i++) {
@@ -99,11 +102,10 @@ public class EmbeddingAnalyzer {
 		return cosine;
 	}
 
-	
-	public CosineDistance[] computeCosineDistances() throws IOException {
+	public CosineDistance[] computeCosineDistances(String word, String fpath) throws IOException {
 
-		String word = io.getInputWord(); // Word from user input.
-		String fpath = io.getFilepath(); // Word Embedding file path.
+		// String word = io.getInputWord(); // Word from user input.
+		// String fpath = io.getFilepath(); // Word Embedding file path.
 
 		// Get word array and vector array from the utility class
 		String[] wordArray = utility.embeddingWordsArray(fpath);
@@ -136,78 +138,76 @@ public class EmbeddingAnalyzer {
 	}
 	// Find perform Bubble sort to organize the data in descending order.
 	// provided file. Return an array with the top 10 similar words
-	
-	
+
 	public CosineDistance[] mergeSort(CosineDistance[] scoreArray) {
-        if (scoreArray.length <= 1) {
-            return scoreArray;
-        }
-
-        int mid = scoreArray.length / 2;
-        CosineDistance[] left = new CosineDistance[mid];
-        CosineDistance[] right = new CosineDistance[scoreArray.length - mid];
-
-        System.arraycopy(scoreArray, 0, left, 0, mid);
-        System.arraycopy(scoreArray, mid, right, 0, scoreArray.length - mid);
-
-        return merge(mergeSort(left), mergeSort(right));
-    }
-
-    private CosineDistance[] merge(CosineDistance[] left, CosineDistance[] right) {
-        CosineDistance[] result = new CosineDistance[left.length + right.length];
-        int i = 0, j = 0, k = 0;
-
-        while (i < left.length && j < right.length) {
-            if (left[i].cosineDistance() >= right[j].cosineDistance()) {
-                result[k++] = left[i++];
-            } else {
-                result[k++] = right[j++];
-            }
-        }
-
-        while (i < left.length) {
-            result[k++] = left[i++];
-        }
-
-        while (j < right.length) {
-            result[k++] = right[j++];
-        }
-
-        return result;
-    }
-
-	
-	
-	
-	
-	
-	public void test() {
-		
-		
-		long start = System.currentTimeMillis();
-		
-		try {
-			String[] wordArray = utility.embeddingWordsArray(io.getFilepath());
-			CosineDistance[] myTestArray = computeCosineDistances();
-			
-			CosineDistance[] myTestArraySorted = bubbleSort(myTestArray);
-			//CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
-			
-			
-			for (int i = 0; i < 10; i++) {
-				CosineDistance cosine = myTestArraySorted[i];				
-				System.out.println("Position: " + i + "; cosine: "+ cosine.cosineDistance() + " index: " + cosine.index() + " word: " + wordArray[cosine.index()]);
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (scoreArray.length <= 1) {
+			return scoreArray;
 		}
-		
-		long finish = System.currentTimeMillis();
-		long timeElapsed = finish - start;
-		
-		System.out.println("The aplication time was: " + timeElapsed);
+
+		int mid = scoreArray.length / 2;
+		CosineDistance[] left = new CosineDistance[mid];
+		CosineDistance[] right = new CosineDistance[scoreArray.length - mid];
+
+		System.arraycopy(scoreArray, 0, left, 0, mid);
+		System.arraycopy(scoreArray, mid, right, 0, scoreArray.length - mid);
+
+		return merge(mergeSort(left), mergeSort(right));
 	}
-	
+
+	private CosineDistance[] merge(CosineDistance[] left, CosineDistance[] right) {
+		CosineDistance[] result = new CosineDistance[left.length + right.length];
+		int i = 0, j = 0, k = 0;
+
+		while (i < left.length && j < right.length) {
+			if (left[i].cosineDistance() >= right[j].cosineDistance()) {
+				result[k++] = left[i++];
+			} else {
+				result[k++] = right[j++];
+			}
+		}
+
+		while (i < left.length) {
+			result[k++] = left[i++];
+		}
+
+		while (j < right.length) {
+			result[k++] = right[j++];
+		}
+
+		return result;
+	}
+
+	public void test() {
+
+		String[] myInputWordArray = wordInputArray();
+
+		String filePath = io.getFilepath();
+
+		for (int i = 0; i < myInputWordArray.length; i++) {
+
+			try {
+				String[] wordArray = utility.embeddingWordsArray(filePath);
+				CosineDistance[] myTestArray = computeCosineDistances(myInputWordArray[i], filePath);
+
+				CosineDistance[] myTestArraySorted = bubbleSort(myTestArray);
+				// CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
+
+				for (int j = 0; j < 10; j++) {
+					CosineDistance cosine = myTestArraySorted[j];
+					System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: "
+							+ cosine.index() + " word: " + wordArray[cosine.index()]);
+				}
+				
+				System.out.println();
+				System.out.println("****************************************");
+				System.out.println();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	}
 }

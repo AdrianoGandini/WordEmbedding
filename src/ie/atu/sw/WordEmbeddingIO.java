@@ -62,7 +62,7 @@ public class WordEmbeddingIO {
 
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
-		config.setInputWord(s.next());
+		config.setInputWord(s.nextLine());
 		
 	}
 	
@@ -80,13 +80,16 @@ public class WordEmbeddingIO {
 	}
 	
 	public void configSettings() {
+		System.out.println();
+		System.out.println();
 		System.out.println("************************************************");
 		System.out.println("*            Configuration Settings            *");
 		System.out.println("File path: " + config.getFilePath());
 		System.out.println("Input word: " + config.getInputWord());
 		System.out.println("Output File Name: " + config.getOutputFileName());
 		System.out.println("************************************************");
-		
+		System.out.println();
+		System.out.println();
 	}
 	
 }
