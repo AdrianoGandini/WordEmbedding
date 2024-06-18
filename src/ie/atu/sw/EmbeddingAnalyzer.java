@@ -108,7 +108,9 @@ public class EmbeddingAnalyzer {
 	private CosineDistance[] computeCosineDistances(String word, String fpath) throws IOException {
 
 		// Get word array and vector array from the utility class
-		String[] wordArray = utility.embeddingWordsArray(fpath); //TODO Maybe use wordArray as argument as it is needed again in runCosineDistances, doesn't looks like good have to run the method twice.
+		String[] wordArray = utility.embeddingWordsArray(fpath); // TODO Maybe use wordArray as argument as it is needed
+																	// again in runCosineDistances, doesn't looks like
+																	// good have to run the method twice.
 		Double[][] vectorArray = utility.embeddingVectorArray(fpath);
 
 		// Select the index of user word input in the word array.
@@ -121,27 +123,41 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	//Sort the Cosine Distance processed array. Comment something about merge sort.
+	// Sort the Cosine Distance processed array. Comment something about merge sort.
 	private CosineDistance[] sortCosineDistances(CosineDistance[] unsortedArray) {
 		return sort.mergeSort(unsortedArray);
 	}
 
-	//Print the first 10 words in the sorted array.
-	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray) {
-			
-		for (int j = 0; j < 10; j++) {
-				CosineDistance cosine = sortedCosineArray[j];
-				System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: " + cosine.index()
-						+ " word: " + wordArray[cosine.index()]);
+	// Print the first 10 words in the sorted array.
+	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
+
+		/*
+		 * This part of the code print each close word details. Can be used for a extra configuration. 
+		 * 
+		 * for (int j = 0; j < numberOfCloseWords; j++) { CosineDistance cosine =
+		 * sortedCosineArray[j]; System.out.println("Position: " + j + "; cosine: " +
+		 * cosine.cosineDistance() + " index: " + cosine.index() + " word: " +
+		 * wordArray[cosine.index()]); }
+		 * 
+		 */
+		System.out.println();
+		for (int j = 0; j < numberOfCloseWords; j++) {
+			CosineDistance cosine = sortedCosineArray[j];
+			System.out.print(wordArray[cosine.index()]);
+			if (j < numberOfCloseWords - 1) {
+				System.out.print(", ");
+			}
 		}
+		System.out.println();
 	}
 
-	//Process the methods.
+	// Process the methods.
 	public void runCosineDistances() throws IOException {
 
 		String[] inputArray = inputArray();
 
 		String filePath = io.getFilepath();
+		int numberOfCloseWords = 10;
 
 		for (int i = 0; i < inputArray.length; i++) {
 
@@ -149,10 +165,10 @@ public class EmbeddingAnalyzer {
 
 			CosineDistance[] myTestArraySorted = sortCosineDistances(cosineDistancesArray);
 			// CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
-			
+
 			String[] wordArray = utility.embeddingWordsArray(filePath);
 
-			printCloseWords(myTestArraySorted, wordArray);
+			printCloseWords(myTestArraySorted, wordArray, numberOfCloseWords);
 
 			System.out.println();
 			System.out.println("****************************************");
