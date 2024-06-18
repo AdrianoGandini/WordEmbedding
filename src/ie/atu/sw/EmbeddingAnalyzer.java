@@ -8,14 +8,16 @@ public class EmbeddingAnalyzer {
 	private FileReaderUtility utility;
 	private Sort sort;
 
-	public EmbeddingAnalyzer(WordEmbeddingIO io, FileReaderUtility utility) {
+	public EmbeddingAnalyzer(WordEmbeddingIO io, FileReaderUtility utility, Sort sort) {
 		this.utility = utility;
 		this.io = io;
-		this.sort = sort;	}
+		this.sort = sort;
+	}
 
-	// TODO Create Regular Expression for the method split. Now it is just identifying just the spaces. .
+	// TODO Create Regular Expression for the method split. Now it is just
+	// identifying just the spaces. .
 	// Method to handle the user word/ words input.
-	public String[] wordInputArray() {
+	private String[] inputArray() {
 		return io.getInputWord().split(" ");
 	}
 
@@ -33,7 +35,7 @@ public class EmbeddingAnalyzer {
 	}
 
 	// Comment
-	public Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
+	private Double[] inputWordVector(int wordIndex, Double[][] embeddingVector) {
 
 		// Array to hold the input word vector.
 		Double[] inputWordVector = new Double[embeddingVector[0].length];
@@ -91,7 +93,7 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	public CosineDistance[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
+	private CosineDistance[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
 
 		CosineDistance[] cosine = new CosineDistance[vectorArray.length];
 
@@ -103,10 +105,10 @@ public class EmbeddingAnalyzer {
 		return cosine;
 	}
 
-	public CosineDistance[] computeCosineDistances(String word, String fpath) throws IOException {
+	private CosineDistance[] computeCosineDistances(String word, String fpath) throws IOException {
 
 		// Get word array and vector array from the utility class
-		String[] wordArray = utility.embeddingWordsArray(fpath);
+		String[] wordArray = utility.embeddingWordsArray(fpath); //TODO Maybe use wordArray as argument as it is needed again in runCosineDistances, doesn't looks like good have to run the method twice.
 		Double[][] vectorArray = utility.embeddingVectorArray(fpath);
 
 		// Select the index of user word input in the word array.
@@ -119,37 +121,42 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	
+	//Sort the Cosine Distance processed array. Comment something about merge sort.
+	private CosineDistance[] sortCosineDistances(CosineDistance[] unsortedArray) {
+		return sort.mergeSort(unsortedArray);
+	}
 
-	public void test() {
+	//Print the first 10 words in the sorted array.
+	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray) {
+			
+		for (int j = 0; j < 10; j++) {
+				CosineDistance cosine = sortedCosineArray[j];
+				System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: " + cosine.index()
+						+ " word: " + wordArray[cosine.index()]);
+		}
+	}
 
-		String[] myInputWordArray = wordInputArray();
+	//Process the methods.
+	public void runCosineDistances() throws IOException {
+
+		String[] inputArray = inputArray();
 
 		String filePath = io.getFilepath();
 
-		for (int i = 0; i < myInputWordArray.length; i++) {
+		for (int i = 0; i < inputArray.length; i++) {
 
-			try {
-				String[] wordArray = utility.embeddingWordsArray(filePath);
-				CosineDistance[] myTestArray = computeCosineDistances(myInputWordArray[i], filePath);
+			CosineDistance[] cosineDistancesArray = computeCosineDistances(inputArray[i], filePath);
 
-				CosineDistance[] myTestArraySorted = sort.mergeSort(myTestArray);
-				// CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
+			CosineDistance[] myTestArraySorted = sortCosineDistances(cosineDistancesArray);
+			// CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
+			
+			String[] wordArray = utility.embeddingWordsArray(filePath);
 
-				for (int j = 0; j < 10; j++) {
-					CosineDistance cosine = myTestArraySorted[j];
-					System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: "
-							+ cosine.index() + " word: " + wordArray[cosine.index()]);
-				}
-				
-				System.out.println();
-				System.out.println("****************************************");
-				System.out.println();
+			printCloseWords(myTestArraySorted, wordArray);
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			System.out.println();
+			System.out.println("****************************************");
+			System.out.println();
 
 		}
 

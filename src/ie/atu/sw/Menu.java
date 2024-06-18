@@ -14,6 +14,7 @@ public class Menu {
 	private Configuration config;
 	private FileReaderUtility file;
 	private EmbeddingAnalyzer analyzer;
+	private Sort sort;
 	private boolean menuRunnig;
 	private Scanner s;
 
@@ -21,10 +22,12 @@ public class Menu {
 	 *  Constructor initiating the the class variables.
 	 */
 	public Menu() {
+		
 		this.config = new Configuration();
 		this.io = new WordEmbeddingIO(config);
 		this.file = new FileReaderUtility();
-		this.analyzer = new EmbeddingAnalyzer(io, file);
+		this.sort = new Sort();
+		this.analyzer = new EmbeddingAnalyzer(io, file, sort);
 		this.s = new Scanner(System.in);
 		this.menuRunnig = true;
 	}
@@ -96,7 +99,7 @@ public class Menu {
 		case 4 -> io.outputFile(null);
 		case 5 -> io.configSettings();
 		case 6 -> menuRunnig = false;
-		case 7 -> analyzer.test();
+		case 7 -> analyzer.runCosineDistances();
 		default -> System.out.println("Invalid Selction");
 
 		}
