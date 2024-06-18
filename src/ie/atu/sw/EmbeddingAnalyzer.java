@@ -6,13 +6,14 @@ public class EmbeddingAnalyzer {
 
 	private WordEmbeddingIO io;
 	private FileReaderUtility utility;
+	private Sort sort;
 
 	public EmbeddingAnalyzer(WordEmbeddingIO io, FileReaderUtility utility) {
 		this.utility = utility;
 		this.io = io;
-	}
+		this.sort = sort;	}
 
-	// TODO part of take multiple words refactoring process.
+	// TODO Create Regular Expression for the method split. Now it is just identifying just the spaces. .
 	// Method to handle the user word/ words input.
 	public String[] wordInputArray() {
 		return io.getInputWord().split(" ");
@@ -104,9 +105,6 @@ public class EmbeddingAnalyzer {
 
 	public CosineDistance[] computeCosineDistances(String word, String fpath) throws IOException {
 
-		// String word = io.getInputWord(); // Word from user input.
-		// String fpath = io.getFilepath(); // Word Embedding file path.
-
 		// Get word array and vector array from the utility class
 		String[] wordArray = utility.embeddingWordsArray(fpath);
 		Double[][] vectorArray = utility.embeddingVectorArray(fpath);
@@ -121,61 +119,7 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	public CosineDistance[] bubbleSort(CosineDistance[] scoreArray) {
-
-		// Bubble sort
-
-		for (int i = 0; i < scoreArray.length; i++) {
-			for (int j = 0; j < scoreArray.length - i - 1; j++) {
-				if (scoreArray[j].cosineDistance() < scoreArray[j + 1].cosineDistance()) {
-					CosineDistance temp = scoreArray[j];
-					scoreArray[j] = scoreArray[j + 1];
-					scoreArray[j + 1] = temp;
-				}
-			}
-		}
-		return scoreArray;
-	}
-	// Find perform Bubble sort to organize the data in descending order.
-	// provided file. Return an array with the top 10 similar words
-
-	public CosineDistance[] mergeSort(CosineDistance[] scoreArray) {
-		if (scoreArray.length <= 1) {
-			return scoreArray;
-		}
-
-		int mid = scoreArray.length / 2;
-		CosineDistance[] left = new CosineDistance[mid];
-		CosineDistance[] right = new CosineDistance[scoreArray.length - mid];
-
-		System.arraycopy(scoreArray, 0, left, 0, mid);
-		System.arraycopy(scoreArray, mid, right, 0, scoreArray.length - mid);
-
-		return merge(mergeSort(left), mergeSort(right));
-	}
-
-	private CosineDistance[] merge(CosineDistance[] left, CosineDistance[] right) {
-		CosineDistance[] result = new CosineDistance[left.length + right.length];
-		int i = 0, j = 0, k = 0;
-
-		while (i < left.length && j < right.length) {
-			if (left[i].cosineDistance() >= right[j].cosineDistance()) {
-				result[k++] = left[i++];
-			} else {
-				result[k++] = right[j++];
-			}
-		}
-
-		while (i < left.length) {
-			result[k++] = left[i++];
-		}
-
-		while (j < right.length) {
-			result[k++] = right[j++];
-		}
-
-		return result;
-	}
+	
 
 	public void test() {
 
@@ -189,7 +133,7 @@ public class EmbeddingAnalyzer {
 				String[] wordArray = utility.embeddingWordsArray(filePath);
 				CosineDistance[] myTestArray = computeCosineDistances(myInputWordArray[i], filePath);
 
-				CosineDistance[] myTestArraySorted = bubbleSort(myTestArray);
+				CosineDistance[] myTestArraySorted = sort.mergeSort(myTestArray);
 				// CosineDistance[] myTestArraySorted = mergeSort(myTestArray);
 
 				for (int j = 0; j < 10; j++) {
