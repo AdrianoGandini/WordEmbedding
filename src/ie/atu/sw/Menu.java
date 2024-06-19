@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * The Menu class handles the user interface for the application.
- * It displays options to the user and processes their input.
+ * The Menu class handles the user interface for the application. It displays
+ * options to the user and processes their input.
  */
 
 public class Menu {
@@ -19,10 +19,10 @@ public class Menu {
 	private Scanner s;
 
 	/*
-	 *  Constructor initiating the the class variables.
+	 * Constructor initiating the the class variables.
 	 */
 	public Menu() {
-		
+
 		this.config = new Configuration();
 		this.io = new WordEmbeddingIO(config);
 		this.file = new FileReaderUtility();
@@ -32,26 +32,25 @@ public class Menu {
 		this.menuRunnig = true;
 	}
 
-	
 	/**
-     * Starts the menu loop, displaying options and processing user input.
-     */
+	 * Starts the menu loop, displaying options and processing user input.
+	 */
 	public void start() {
 
 		while (menuRunnig) {
 
 			showOptions();
-			
-			int choice = s.nextInt();
-			
-			
-				try {
-					handleOptions(choice);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
+
+			try {
+				int choice = s.nextInt();
+				handleOptions(choice);
+			} catch (Exception e) {
+				System.out.println();
+				System.out.println("******** The option selected is not valid. Please enter a valid option ******** ");
+				System.out.println();
+				s.nextLine();
+			}
+
 		}
 		s.close();
 	}
@@ -71,13 +70,12 @@ public class Menu {
 		System.out.println("(1) Specify Embedding File - Default path is pre-filled");
 		System.out.println("(2) Specify a Output File name");
 		System.out.println("(3) Enter a word or a text");
-		System.out.println("(4) Processed file");	
+		System.out.println("(4) Processed file");
 		System.out.println("(5) Show configuration settings");
 		System.out.println("(6) Quit");
 		System.out.println("(?) Configure Options");
-		System.out.println("(?) Optional Extras...");	
-		
-		
+		System.out.println("(?) Optional Extras...");
+
 		System.out.println(ConsoleColour.BLACK_BACKGROUND_BRIGHT);
 		System.out.println("Slelect Option [1 - 4 > ");
 		System.out.println();
@@ -88,10 +86,9 @@ public class Menu {
 	 * 
 	 * @param choice the user's menu selection.
 	 */
-	private void handleOptions(int choice) throws IOException{
+	private void handleOptions(int choice) throws IOException {
 
-		
-	switch (choice) {
+		switch (choice) {
 
 		case 1 -> io.setFilePath();
 		case 2 -> io.setOutputFileName();
@@ -104,6 +101,5 @@ public class Menu {
 
 		}
 	}
-	
 
 }
