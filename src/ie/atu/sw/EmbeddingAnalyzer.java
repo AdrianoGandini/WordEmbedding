@@ -1,5 +1,7 @@
 package ie.atu.sw;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class EmbeddingAnalyzer {
@@ -185,7 +187,4 @@ public class EmbeddingAnalyzer {
 		System.out.println();
 	}
 	
-	public void topWordsOutFile() {
-		//TODO
-	}
 }
