@@ -4,7 +4,7 @@ public class Configuration {
 
 	private String filePath = "./word-embeddings.txt";
 	private String inputWord;
-	private String outputFileName;
+	private String outputFileName = "SimilarWordsOut.txt";
 
 	public String getFilePath() {
 		return filePath;

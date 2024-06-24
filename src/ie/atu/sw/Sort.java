@@ -7,6 +7,7 @@ public class Sort {
 		/*
 		 * Bubble sort
 		 * https://stackoverflow.com/questions/11644858/bubblesort-implementation
+		 * The Bubble sort is not used in the application as it was slow O(n^2) comparing to Merge Sort O(n log n).
 		 */
 
 		for (int i = 0; i < scoreArray.length; i++) {
@@ -28,11 +29,13 @@ public class Sort {
 	 */
 
 	public CosineDistance[] mergeSort(CosineDistance[] scoreArray) {
+		
 		if (scoreArray.length <= 1) {
 			return scoreArray;
 		}
 
 		int mid = scoreArray.length / 2;
+		
 		CosineDistance[] left = new CosineDistance[mid];
 		CosineDistance[] right = new CosineDistance[scoreArray.length - mid];
 

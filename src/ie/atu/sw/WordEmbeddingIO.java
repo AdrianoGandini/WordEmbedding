@@ -22,7 +22,7 @@ public class WordEmbeddingIO {
 	
 	private void fileWriter(String[] words, String fname) throws IOException {
 
-		BufferedWriter in = new BufferedWriter(new FileWriter(fname));//TODO Check if the file path is already set.
+		BufferedWriter in = new BufferedWriter(new FileWriter(fname));
 
 		for (int i = 0; i < words.length; i++) {
 			in.write(words[i]);
@@ -37,9 +37,8 @@ public class WordEmbeddingIO {
 
 	public void outputFile(String[] array) {
 
-		if (config.getOutputFileName() == null) {
-			System.out.println("Output file name not set");
-			setOutputFileName();
+		if (config.getOutputFileName() == "SimilarWordsOut.txt") {
+			System.out.println("The default file name SimilarWordsOut.txt will be used");
 		}		
 		try {
 			fileWriter(array, config.getOutputFileName());
