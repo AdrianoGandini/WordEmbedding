@@ -1,7 +1,5 @@
 package ie.atu.sw;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class EmbeddingAnalyzer {
@@ -31,7 +29,6 @@ public class EmbeddingAnalyzer {
 				return i;
 			}
 		}
-
 		System.out.println("The word: " + word + " is not present in the > " + io.getFilepath() + " < file.");
 		return -1;
 	}
@@ -100,7 +97,6 @@ public class EmbeddingAnalyzer {
 		CosineDistance[] cosine = new CosineDistance[vectorArray.length];
 
 		for (int i = 0; i < vectorArray.length; i++) {
-
 			CosineDistance s = new CosineDistance(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
 			cosine[i] = s;
 		}
@@ -158,7 +154,6 @@ public class EmbeddingAnalyzer {
 	public CosineDistance[] processCosineDistances(String word, String fpath) throws IOException {
 
 		System.out.println("Running cosine distances...");
-
 		System.out.println("Processing word: " + word);
 		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, fpath);
 
@@ -172,12 +167,10 @@ public class EmbeddingAnalyzer {
 		
 		String[] inputWords = getInputWordsArray();
 		String fpath = io.getFilepath();
-
 		String[] wordArray = utility.embeddingWordsArray(fpath);
 
 		for (String word : inputWords) {
 			CosineDistance[] cosieDistances = processCosineDistances(word, fpath);
-
 			if (detail) {
 				printDetailCloseWords(cosieDistances, wordArray, 10);
 			} else {
@@ -185,6 +178,5 @@ public class EmbeddingAnalyzer {
 			}
 		}
 		System.out.println();
-	}
-	
+	}	
 }
