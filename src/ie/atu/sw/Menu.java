@@ -15,7 +15,7 @@ public class Menu {
 	private FileReaderUtility file;
 	private EmbeddingAnalyzer analyzer;
 	private Sort sort;
-	private boolean menuRunnig;
+	private boolean menuRunning;
 	private Scanner s;
 
 	/*
@@ -29,7 +29,7 @@ public class Menu {
 		this.sort = new Sort();
 		this.analyzer = new EmbeddingAnalyzer(io, file, sort);
 		this.s = new Scanner(System.in);
-		this.menuRunnig = true;
+		this.menuRunning = true;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class Menu {
 	 */
 	public void start() {
 
-		while (menuRunnig) {
+		while (menuRunning) {
 
 			showOptions();
 
@@ -59,7 +59,6 @@ public class Menu {
 	 * The method displays the application header and available options to the user.
 	 */
 	private void showOptions() {
-
 		System.out.println("*************************************************************");
 		System.out.println("*                                                           *");
 		System.out.println("*      ATU - Dept. of Computer Science & Applied Physics    *");
@@ -71,34 +70,33 @@ public class Menu {
 		System.out.println("(2) Specify a Output File name");
 		System.out.println("(3) Enter a word or a text");
 		System.out.println("(4) Processed file");
-		System.out.println("(5) Show configuration settings");
-		System.out.println("(6) Quit");
+		System.out.println("(5) Display Top close words");
+		System.out.println("(6) Display Detailed Top close words");
+		System.out.println("(7) Show configuration settings");
+		System.out.println("(8) Quit");
 		System.out.println("(?) Configure Options");
 		System.out.println("(?) Optional Extras...");
-
 		System.out.println(ConsoleColour.BLACK_BACKGROUND_BRIGHT);
-		System.out.println("Slelect Option [1 - 4 > ");
+		System.out.println("Select Option [1 - 8] > ");
 		System.out.println();
 	}
 
 	/*
-	 * Method process the user choice and handle tasks for other classes.
+	 * Method processes the user choice and handles tasks for other classes.
 	 * 
 	 * @param choice the user's menu selection.
 	 */
 	private void handleOptions(int choice) throws IOException {
-
 		switch (choice) {
-
-		case 1 -> io.setFilePath();
-		case 2 -> io.setOutputFileName();
-		case 3 -> io.setInputWord();
-		case 4 -> io.outputFile(null);
-		case 5 -> io.configSettings();
-		case 6 -> menuRunnig = false;
-		case 7 -> analyzer.runCosineDistances();
-		default -> System.out.println("Invalid Selction");
-
+			case 1 -> io.setFilePath(); // Set the embedding file path
+			case 2 -> io.setOutputFileName(); // Set the output file name
+			case 3 -> io.setInputWord(); // Enter a word or a text
+			case 4 -> io.outputFile(null); // Process and output file
+			case 5 -> analyzer.printWords(false); // Display top close words
+			case 6 -> analyzer.printWords(true); // Display detailed top close words
+			case 7 -> io.configSettings(); // Show configuration settings
+			case 8 -> menuRunning = false; // Quit the application
+			default -> System.out.println("Invalid Selection"); // Handle invalid selections
 		}
 	}
 

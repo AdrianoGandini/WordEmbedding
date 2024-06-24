@@ -34,7 +34,8 @@ public class WordEmbeddingIO {
 		in.flush();
 		in.close();
 	}
-
+	
+	//I have to change the method
 	public void outputFile(String[] array) {
 
 		if (config.getOutputFileName() == "SimilarWordsOut.txt") {
