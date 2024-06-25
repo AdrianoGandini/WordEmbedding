@@ -1,5 +1,7 @@
 package ie.atu.sw;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class EmbeddingAnalyzer {
@@ -127,6 +129,36 @@ public class EmbeddingAnalyzer {
 		return sort.mergeSort(unsortedArray);
 	}
 
+	// The method return a sorted Cosine Distance Array.
+	public CosineDistance[] processCosineDistances(String word, String fpath) throws IOException {
+
+		System.out.println("Running cosine distances...");
+		System.out.println("Processing word: " + word);
+		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, fpath);
+
+		if (cosineDistancesArray.length == 0) {
+			System.out.println("No cosine distances calculated for word: " + word);
+		}
+		return sortCosineDistances(cosineDistancesArray);
+	}
+
+	public void printWords(boolean detail) throws IOException {
+
+		String[] inputWords = getInputWordsArray();
+		String fpath = io.getFilepath();
+		String[] wordArray = utility.embeddingWordsArray(fpath);
+
+		for (String word : inputWords) {
+			CosineDistance[] cosieDistances = processCosineDistances(word, fpath);
+			if (detail) {
+				printDetailCloseWords(cosieDistances, wordArray, 10);
+			} else {
+				printCloseWords(cosieDistances, wordArray, 10);
+			}
+		}
+		System.out.println();
+	}
+
 	// Print the first 10 words in the sorted array.
 	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
 
@@ -148,35 +180,35 @@ public class EmbeddingAnalyzer {
 			System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: " + cosine.index()
 					+ " word: " + wordArray[cosine.index()]);
 		}
-	}
-
-	// The method return a sorted Cosine Distance Array.
-	public CosineDistance[] processCosineDistances(String word, String fpath) throws IOException {
-
-		System.out.println("Running cosine distances...");
-		System.out.println("Processing word: " + word);
-		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, fpath);
-
-		if (cosineDistancesArray.length == 0) {
-			System.out.println("No cosine distances calculated for word: " + word);
-		}
-		return sortCosineDistances(cosineDistancesArray);
-	}
-
-	public void printWords(boolean detail) throws IOException {
-		
-		String[] inputWords = getInputWordsArray();
-		String fpath = io.getFilepath();
-		String[] wordArray = utility.embeddingWordsArray(fpath);
-
-		for (String word : inputWords) {
-			CosineDistance[] cosieDistances = processCosineDistances(word, fpath);
-			if (detail) {
-				printDetailCloseWords(cosieDistances, wordArray, 10);
-			} else {
-				printCloseWords(cosieDistances, wordArray, 10);
-			}
-		}
 		System.out.println();
-	}	
+	}
+
+
+	public void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordArray) throws IOException {
+	    try (BufferedWriter in = new BufferedWriter(new FileWriter(out))) {
+	        for (String inputWord : inputWordArray) {
+	            CosineDistance[] array = processCosineDistances(inputWord, fpath);
+	            
+	            //TODO remove the hard code 10.
+	            for (int j = 0; j < 10; j++) {
+	                CosineDistance cosine = array[j];
+	                in.write(wordArray[cosine.index()]);
+	                if (j < 10 - 1) {
+	                    in.write(", ");
+	                }
+	            }
+	            in.write("\n"); // Add a newline character after each set of 10 words
+	        }
+	    }
+	}
+	
+	//Not the best design. Just to see if it works
+	public void test() {
+		try {
+			outputWordFile(io.getFilepath(), io.getOutputFilename(), getInputWordsArray(), utility.embeddingWordsArray(io.getFilepath()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 }

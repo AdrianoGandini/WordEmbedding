@@ -96,6 +96,7 @@ public class Menu {
 			case 6 -> analyzer.printWords(true); // Display detailed top close words
 			case 7 -> io.configSettings(); // Show configuration settings
 			case 8 -> menuRunning = false; // Quit the application
+			case 9 -> analyzer.test();
 			default -> System.out.println("Invalid Selection"); // Handle invalid selections
 		}
 	}

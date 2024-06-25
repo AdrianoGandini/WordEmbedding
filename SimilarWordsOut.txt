@@ -1,0 +1,2 @@
+king, prince, queen, son, uncle, emperor, throne, kingdom, brother, ruler
+queen, princess, elizabeth, lady, king, prince, coronation, consort, daughter, royal
