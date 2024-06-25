@@ -18,18 +18,19 @@ public class Menu {
 	private boolean menuRunning;
 	private Scanner s;
 
+	
 	/*
 	 * Constructor initiating the the class variables.
 	 */
-	public Menu() {
-
-		this.config = new Configuration();
-		this.io = new WordEmbeddingIO(config);
-		this.file = new FileReaderUtility();
-		this.sort = new Sort();
-		this.analyzer = new EmbeddingAnalyzer(io, file, sort);
-		this.s = new Scanner(System.in);
+	
+	public Menu(WordEmbeddingIO io, Configuration config, FileReaderUtility file, EmbeddingAnalyzer analyzer, Sort sort, Scanner s) {
+		this.io = io;
+		this.config = config;
+		this.file = file;
+		this.analyzer = analyzer;
+		this.sort = sort;
 		this.menuRunning = true;
+		this.s = s;
 	}
 
 	/**
@@ -91,12 +92,11 @@ public class Menu {
 			case 1 -> io.setFilePath(); // Set the embedding file path
 			case 2 -> io.setOutputFileName(); // Set the output file name
 			case 3 -> io.setInputWord(); // Enter a word or a text
-			case 4 -> io.outputFile(null); // Process and output file
-			case 5 -> analyzer.printWords(false); // Display top close words
-			case 6 -> analyzer.printWords(true); // Display detailed top close words
+			case 4 -> io.test(); // Process and output file
+			case 5 -> io.printWords(false); // Display top close words
+			case 6 -> io.printWords(true); // Display detailed top close words
 			case 7 -> io.configSettings(); // Show configuration settings
 			case 8 -> menuRunning = false; // Quit the application
-			case 9 -> analyzer.test();
 			default -> System.out.println("Invalid Selection"); // Handle invalid selections
 		}
 	}

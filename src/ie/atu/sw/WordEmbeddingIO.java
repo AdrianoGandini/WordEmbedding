@@ -8,13 +8,17 @@ import java.util.Scanner;
 public class WordEmbeddingIO {
 	private Scanner s;
 	private Configuration config;
+	private EmbeddingAnalyzer analyzer;
+	private FileReaderUtility utility;
 	
 
 	
 	
 	// Constructor 
-	public WordEmbeddingIO(Configuration config) {
+	public WordEmbeddingIO(Configuration config, EmbeddingAnalyzer analyzer, FileReaderUtility utility) {
 		this.config = config;
+		this.analyzer = analyzer;
+		this.utility = utility;
 		this.s = new Scanner(System.in);
 		
 	}
@@ -66,8 +70,11 @@ public class WordEmbeddingIO {
 		
 	}
 	
-	public String getInputWord() {
-		return config.getInputWord().toLowerCase(); //Converting the user input to lower case.
+	// TODO Create Regular Expression for the method split. Now it is just
+	// identifying just the spaces. .
+	// Method to handle the user word/ words input.
+	public String [] getInputWordArray() {
+		return config.getInputWord().toLowerCase().split(" "); //Converting the user input to lower case.
 	}
 	
 	public void setOutputFileName() {
@@ -84,12 +91,83 @@ public class WordEmbeddingIO {
 		System.out.println();
 		System.out.println("************************************************");
 		System.out.println("*            Configuration Settings            *");
+		System.out.println();
 		System.out.println("File path: " + config.getFilePath());
 		System.out.println("Input word: " + config.getInputWord());
 		System.out.println("Output File Name: " + config.getOutputFileName());
+		System.out.println();
 		System.out.println("************************************************");
 		System.out.println();
 		System.out.println();
+	}
+	
+	
+	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
+
+		System.out.println();
+		for (int j = 0; j < numberOfCloseWords; j++) {
+			CosineDistance cosine = sortedCosineArray[j];
+			System.out.print(wordArray[cosine.index()]);
+			if (j < numberOfCloseWords - 1) {
+				System.out.print(", ");
+			}
+		}
+		System.out.println();
+	}
+
+	// Print each close word details.
+	private void printDetailCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
+		for (int j = 0; j < numberOfCloseWords; j++) {
+			CosineDistance cosine = sortedCosineArray[j];
+			System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: " + cosine.index()
+					+ " word: " + wordArray[cosine.index()]);
+		}
+		System.out.println();
+	}
+	
+	public void printWords(boolean detail) throws IOException {
+
+		String[] inputWords = getInputWordArray();
+		String fpath = getFilepath();
+		
+		String[] wordArray = utility.embeddingWordsArray(fpath);
+
+		for (String word : inputWords) {
+			CosineDistance[] cosieDistances = analyzer.processCosineDistances(word, fpath);
+			if (detail) {
+				printDetailCloseWords(cosieDistances, wordArray, 10); // Change the hard code "10".
+			} else {
+				printCloseWords(cosieDistances, wordArray, 10);
+			}
+		}
+		System.out.println();
+	}
+	
+	public void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordArray) throws IOException {
+	    try (BufferedWriter in = new BufferedWriter(new FileWriter(out))) {
+	        for (String inputWord : inputWordArray) {
+	            CosineDistance[] array = analyzer.processCosineDistances(inputWord, fpath);
+	            
+	            //TODO remove the hard code 10.
+	            for (int j = 0; j < 10; j++) {
+	                CosineDistance cosine = array[j];
+	                in.write(wordArray[cosine.index()]);
+	                if (j < 10 - 1) {
+	                    in.write(", ");
+	                }
+	            }
+	            in.write("\n"); // Add a newline character after each set of 10 words
+	        }
+	    }
+	}
+	
+	public void test() {
+		try {
+			outputWordFile(getFilepath(), getOutputFilename(), getInputWordArray(), utility.embeddingWordsArray(getFilepath()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 }
