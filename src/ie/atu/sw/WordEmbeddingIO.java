@@ -74,7 +74,7 @@ public class WordEmbeddingIO {
 	// identifying just the spaces. .
 	// Method to handle the user word/ words input.
 	public String [] getInputWordArray() {
-		return config.getInputWord().toLowerCase().split(" "); //Converting the user input to lower case.
+		return config.getInputWord().toLowerCase().split("\\W+"); //Converting the user input to lower case.
 	}
 	
 	public void setOutputFileName() {
