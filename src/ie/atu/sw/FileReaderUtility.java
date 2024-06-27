@@ -6,16 +6,20 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /*
- * Class to hold all the logic used to work with the embedded file
+ * Class to hold all the logic used to work with the embedded file.
  */
 
 public class FileReaderUtility {
 	
 	
-	/*
+	/**
 	 * Method to return the number of rows in the WordEmbedding file.
+	 * 
+	 * @param fpath The file path of the WordEmbedding file.
+	 * @return The number of rows in the file.
+	 * @throws FileNotFoundException If the file is not found.
+	 * @throws IOException If an I/O error occurs.
 	 */
-
 	private int getNumberOfRows(String fpath) throws FileNotFoundException, IOException {
 
 		int rowsCounter = 0; // Variable to hold the number of rows in the file.
@@ -29,30 +33,33 @@ public class FileReaderUtility {
 		return rowsCounter;
 	}
 
-	/*
+	/**
 	 * Method to return the number of columns in the WordEmbedding file.
+	 * 
+	 * @param fpath The file path of the WordEmbedding file.
+	 * @return The number of columns in the file.
+	 * @throws FileNotFoundException If the file is not found.
+	 * @throws IOException If an I/O error occurs.
 	 */
 	private int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
-			return in.readLine().split(",").length - 1;
+			return in.readLine().split(",").length - 1; //The -1 represents the first word column?? 
 		}
-
 	}
 
-	/*
+	/**
 	 * The method creates an array containing the embedding words.
 	 * 
-	 * @param size the variable defines the word array size.
+	 * @param fpath The file path of the WordEmbedding file.
+	 * @return An String array of embedding words.
+	 * @throws IOException If an I/O error occurs.
 	 */
-
 	public String[] embeddingWordsArray(String fpath) throws IOException {
 
 		String[] wordArray = new String[getNumberOfRows(fpath)];
-
 		BufferedReader in = new BufferedReader(new FileReader(fpath));
 
 		int counter = 0;
-
 		String next;
 
 		while ((next = in.readLine()) != null) {
@@ -62,15 +69,15 @@ public class FileReaderUtility {
 		}
 		in.close();
 		return wordArray;
-
 	}
 
-	/*
-	 * The method creates an two dimensional array that contains the vectors
+	/**
+	 * The method creates a two-dimensional array that contains the vectors.
 	 * 
-	 * @param rows number of rows in the array
-	 * 
-	 * @param columns number of columns in the array.
+	 * @param fpath The file path of the WordEmbedding file.
+	 * @return A two-dimensional array of embedding vectors.
+	 * @throws FileNotFoundException If the file is not found.
+	 * @throws IOException If an I/O error occurs.
 	 */
 	public Double[][] embeddingVectorArray(String fpath) throws FileNotFoundException, IOException {
 
@@ -88,12 +95,11 @@ public class FileReaderUtility {
 			String[] embeddingLine = line.split(",");
 
 			for (int j = 0; j < columns; j++) {
-				vector[row][j] = Double.parseDouble(embeddingLine[j + 1]);
+				vector[row][j] = Double.parseDouble(embeddingLine[j + 1]); //Is the number one here to jump the first column, that contains the words?
 			}
 			row++;
 		}
 		in.close();
 		return vector;
 	}
-
 }
