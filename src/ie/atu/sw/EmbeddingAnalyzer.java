@@ -108,22 +108,7 @@ public class EmbeddingAnalyzer {
 
 	}
 	
-	/**
-	 * Method...
-	 */
-	private CosineDistance[] computeCosineDistances(String word, String fpath, String[] wordArray,
-			Double[][] vectorArray) throws IOException {
-
-		// Select the index of user word input in the word array.
-		int wordIndex = getWordIndex(word, wordArray);
-
-		// Select the word vector array based on the wordIdex.
-		Double[] inputWordVector = getWordVector(wordIndex, vectorArray);
-
-		return calculateCosineDistances(inputWordVector, vectorArray);
-
-	}
-
+	
 	/**
 	 * The method calculate the cosine distance between a user input word vector and
 	 * all the word vectors in the Embedded word file.
@@ -144,6 +129,22 @@ public class EmbeddingAnalyzer {
 			cosine[i] = s;
 		}
 		return cosine;
+	}
+
+	/**
+	 * Method to compute the cosine distances between a user input word and all words in the embedding file.
+	 */
+	private CosineDistance[] computeCosineDistances(String word, String[] wordArray,
+			Double[][] vectorArray) throws IOException {
+
+		// Select the index of user word input in the word array.
+		int wordIndex = getWordIndex(word, wordArray);
+		
+		// Select the word vector array based on the wordIdex.
+		Double[] inputWordVector = getWordVector(wordIndex, vectorArray);
+
+		return calculateCosineDistances(inputWordVector, vectorArray);
+
 	}
 
 
@@ -174,7 +175,7 @@ public class EmbeddingAnalyzer {
 
 		System.out.println("Running cosine distances...");
 		System.out.println("Processing word: " + word);
-		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, fpath, wordArray, vectorArray);
+		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, wordArray, vectorArray);
 
 		if (cosineDistancesArray.length == 0) {
 			System.out.println("No cosine distances calculated for word: " + word);
