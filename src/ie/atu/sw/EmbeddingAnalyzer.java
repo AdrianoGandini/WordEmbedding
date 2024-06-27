@@ -2,9 +2,12 @@ package ie.atu.sw;
 
 import java.io.IOException;
 
+/*
+ * This class holds methods to analyze the word embedding file. 
+ */
+
 public class EmbeddingAnalyzer {
 
-	
 	private FileReaderUtility utility;
 	private Sort sort;
 
@@ -13,8 +16,13 @@ public class EmbeddingAnalyzer {
 		this.sort = sort;
 	}
 
-
-	// Method to return the array index of the user inputed word.
+	/**
+	 * Method to return the array index of the user inputed word.
+	 * 
+	 * @param word user inputed word
+	 * @param word array
+	 * @return user word index on word array
+	 */
 	private int getWordIndex(String word, String[] wordArray) {
 
 		for (int i = 0; i < wordArray.length; i++) {
@@ -26,7 +34,13 @@ public class EmbeddingAnalyzer {
 		return -1;
 	}
 
-	// Comment
+	/**
+	 * The method return the vector related to the user input word.
+	 * 
+	 * @param wordIndex       user inputed word index
+	 * @param embeddingVector Embedding word vector two dimensional array
+	 * @return The input word vector array
+	 */
 	private Double[] getWordVector(int wordIndex, Double[][] embeddingVector) {
 
 		// Array to hold the input word vector.
@@ -38,26 +52,32 @@ public class EmbeddingAnalyzer {
 		return inputWordVector;
 	}
 
-	/*
-	 * //Method to perform the dot calculation. Product of two vectors.
-	 * 
-	 * font =
-	 * https://www.geeksforgeeks.org/program-dot-product-cross-product-two-vector/
+	/**
+	 * Method to perform the dot product calculation of two vectors.
+	 *
+	 * @param The     first vector as an array of Double.
+	 * @param vectorB The second vector as an array of Double.
+	 * @return The dot product of vectorA and vectorB. font =
+	 *         https://www.geeksforgeeks.org/program-dot-product-cross-product-two-vector/
 	 */
-	private Double calculateDotProduct(Double vect_A[], Double vect_B[]) {
+	private Double calculateDotProduct(Double vectorA[], Double vectorB[]) {
 
 		double product = 0;
 
-		for (int i = 0; i < vect_A.length; i++) {
-			product = product + (vect_A[i] * vect_B[i]);
+		for (int i = 0; i < vectorA.length; i++) {
+			product = product + (vectorA[i] * vectorB[i]);
 		}
 		return product;
 	}
 
-	/*
-	 * Method to calculate the magnitude. The root sum of the squares of two
-	 * vectors;
+	/**
+	 * Method to calculate the magnitude between two vectors.
+	 * 
+	 * @param vectorA The first vector as an array of Double.
+	 * @param vectorB The second vector as an array of Double.
+	 * @return The the root sum of the squares of two vectors
 	 */
+
 	private Double calculateMagnitude(Double vectorA[], Double vectorB[]) {
 
 		double SquaresSumVectorA = 0;
@@ -71,39 +91,28 @@ public class EmbeddingAnalyzer {
 		return Math.sqrt(SquaresSumVectorA * SquaresSumVectorB);
 	}
 
-	/*
-	 * Method to calculate the Cosine Distance can be calculated by computing the
-	 * dot product of the two vectors and then dividing this number by product of
-	 * the magnitudes The method will return a value between 1, max similarity and 0
-	 * max dissimilar.
+	/**
+	 * Method to calculate the Cosine Distance by computing the dot product of the
+	 * two vectors and then dividing this number by product of the magnitudes.
+	 * Return a value between 1, max similarity and 0.
+	 * 
+	 * @param vectorA The first vector as an array of Double.
+	 * @param vectorB The second vector as an array of Double.
+	 * @return the cosine similarity.
 	 */
-	private Double computeCosineSimilarity(Double vect_A[], Double vect_B[]) {
+	private Double computeCosineSimilarity(Double vectorA[], Double vectorB[]) {
 
-		double dotProduct = calculateDotProduct(vect_A, vect_B);
-		double magnitude = calculateMagnitude(vect_A, vect_B);
+		double dotProduct = calculateDotProduct(vectorA, vectorB);
+		double magnitude = calculateMagnitude(vectorA, vectorB);
 		return dotProduct / magnitude; // Return the cosine distance.
 
 	}
-
-	private CosineDistance[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
-
-		CosineDistance[] cosine = new CosineDistance[vectorArray.length];
-
-		for (int i = 0; i < vectorArray.length; i++) {
-			CosineDistance s = new CosineDistance(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
-			cosine[i] = s;
-		}
-		return cosine;
-	}
-
-	// TODO Comment
-	private CosineDistance[] computeCosineDistances(String word, String fpath) throws IOException {
-
-		// Get word array and vector array from the utility class
-		String[] wordArray = utility.embeddingWordsArray(fpath); // TODO Maybe use wordArray as argument as it is needed
-																	// again in runCosineDistances, doesn't looks like
-																	// good have to run the method twice.
-		Double[][] vectorArray = utility.embeddingVectorArray(fpath);
+	
+	/**
+	 * Method...
+	 */
+	private CosineDistance[] computeCosineDistances(String word, String fpath, String[] wordArray,
+			Double[][] vectorArray) throws IOException {
 
 		// Select the index of user word input in the word array.
 		int wordIndex = getWordIndex(word, wordArray);
@@ -115,23 +124,61 @@ public class EmbeddingAnalyzer {
 
 	}
 
-	// Sort the Cosine Distance processed array.
+	/**
+	 * The method calculate the cosine distance between a user input word vector and
+	 * all the word vectors in the Embedded word file.
+	 * 
+	 * @param inputWordVector user input word vector double array.
+	 * @param vectorArray two dimensional array with the file words vectors.
+	 * @return A CosineDistance array that carries the Cosine Similarity between the
+	 *         input word and each word in the file and a word index.
+	 */
+	private CosineDistance[] calculateCosineDistances(Double[] inputWordVector, Double[][] vectorArray) {
+
+		CosineDistance[] cosine = new CosineDistance[vectorArray.length];
+
+		for (int i = 0; i < vectorArray.length; i++) {
+
+			// CosineDistance integer i is used as a word index tracker.
+			CosineDistance s = new CosineDistance(computeCosineSimilarity(inputWordVector, vectorArray[i]), i);
+			cosine[i] = s;
+		}
+		return cosine;
+	}
+
+
+	/**
+	 * Method to sort a CosineDistance array in descending order by the cosine
+	 * similarity.
+	 * 
+	 * @param unsortedArray The unsorted array of CosineDistance objects.
+	 * @return A sorted array of CosineDistance objects in descending order by cosine similarity.
+	 */
 	private CosineDistance[] sortCosineDistances(CosineDistance[] unsortedArray) {
 		return sort.mergeSort(unsortedArray);
 	}
 
-	// The method return a sorted Cosine Distance Array.
+	/**
+	 * The method return a sorted CosineDistance array, after compute the cosine
+	 * distances between the inputed word an all the embedding words in the file.
+	 * 
+	 * @param user input word
+	 * @param embedding word array file path
+	 * @return CosineDistance array with sorted cosine distances
+	 */
 	public CosineDistance[] processCosineDistances(String word, String fpath) throws IOException {
+
+		// Get word array and vector array from the utility class
+		String[] wordArray = utility.embeddingWordsArray(fpath);
+		Double[][] vectorArray = utility.embeddingVectorArray(fpath);
 
 		System.out.println("Running cosine distances...");
 		System.out.println("Processing word: " + word);
-		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, fpath);
+		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, fpath, wordArray, vectorArray);
 
 		if (cosineDistancesArray.length == 0) {
 			System.out.println("No cosine distances calculated for word: " + word);
 		}
 		return sortCosineDistances(cosineDistancesArray);
 	}
-
-	
 }
