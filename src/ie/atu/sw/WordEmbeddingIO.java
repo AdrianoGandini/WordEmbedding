@@ -5,53 +5,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/*
+ * The class handles all the application input / output.
+ */
+
 public class WordEmbeddingIO {
 	private Scanner s;
 	private Configuration config;
 	private EmbeddingAnalyzer analyzer;
 	private FileReaderUtility utility;
 	
-
 	
-	
-	// Constructor 
 	public WordEmbeddingIO(Configuration config, EmbeddingAnalyzer analyzer, FileReaderUtility utility) {
 		this.config = config;
 		this.analyzer = analyzer;
 		this.utility = utility;
 		this.s = new Scanner(System.in);
-		
-	}
-
-	
-	private void fileWriter(String[] words, String fname) throws IOException {
-
-		BufferedWriter in = new BufferedWriter(new FileWriter(fname));
-
-		for (int i = 0; i < words.length; i++) {
-			in.write(words[i]);
-
-			if (i < words.length - 1) {
-				in.write(", ");
-			}
-		}
-		in.flush();
-		in.close();
-	}
-	
-	//I have to change the method
-	public void outputFile(String[] array) {
-
-		if (config.getOutputFileName() == "SimilarWordsOut.txt") {
-			System.out.println("The default file name SimilarWordsOut.txt will be used");
-		}		
-		try {
-			fileWriter(array, config.getOutputFileName());
-		} catch (IOException e) {
-			System.err.println("Error file not created");
-			e.printStackTrace();
-		}
-
 	}
 
 	
@@ -66,8 +35,7 @@ public class WordEmbeddingIO {
 
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
-		config.setInputWord(s.nextLine());
-		
+		config.setInputWord(s.nextLine());	
 	}
 	
 	// TODO Create Regular Expression for the method split. Now it is just
@@ -143,7 +111,7 @@ public class WordEmbeddingIO {
 		System.out.println();
 	}
 	
-	public void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordArray) throws IOException {
+	private void outputWordFile(String fpath, String out, String[] inputWordArray, String[] embeddingWordsArray) throws IOException {
 	    try (BufferedWriter in = new BufferedWriter(new FileWriter(out))) {
 	        for (String inputWord : inputWordArray) {
 	            CosineDistance[] array = analyzer.processCosineDistances(inputWord, fpath);
@@ -151,7 +119,7 @@ public class WordEmbeddingIO {
 	            //TODO remove the hard code 10.
 	            for (int j = 0; j < 10; j++) {
 	                CosineDistance cosine = array[j];
-	                in.write(wordArray[cosine.index()]);
+	                in.write(embeddingWordsArray[cosine.index()]);
 	                if (j < 10 - 1) {
 	                    in.write(", ");
 	                }
@@ -161,9 +129,18 @@ public class WordEmbeddingIO {
 	    }
 	}
 	
-	public void test() {
+	/*
+	 * Method write the top closest words in a ".txt" file.
+	 */
+	public void getWordFile() throws IOException {
+		
+		String fpath = getFilepath();
+		String outFileName = getOutputFilename();
+		String [] inputWordArray = getInputWordArray();
+		String [] embeddigWordsArray = utility.embeddingWordsArray(fpath); 
+		
 		try {
-			outputWordFile(getFilepath(), getOutputFilename(), getInputWordArray(), utility.embeddingWordsArray(getFilepath()));
+			outputWordFile(fpath, outFileName, inputWordArray, embeddigWordsArray);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

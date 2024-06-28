@@ -110,7 +110,7 @@ public class EmbeddingAnalyzer {
 	
 	
 	/**
-	 * The method calculate the cosine distance between a user input word vector and
+	 * The method calculate the cosine similarity between a user input word vector and
 	 * all the word vectors in the Embedded word file.
 	 * 
 	 * @param inputWordVector user input word vector double array.
@@ -132,9 +132,14 @@ public class EmbeddingAnalyzer {
 	}
 
 	/**
-	 * Method to compute the cosine distances between a user input word and all words in the embedding file.
+	 * Compute the cosine similarity from a user input word and all words in the embedding file.
+	 * 
+	 * @param word user input word
+	 * @param wordArray Embedding file word array
+	 * @param vectorArray embedding file vector
+	 * @return a array of CosineDistances objects representing the cosine similarities.
 	 */
-	private CosineDistance[] computeCosineDistances(String word, String[] wordArray,
+	private CosineDistance[] getWordCosines(String word, String[] wordArray,
 			Double[][] vectorArray) throws IOException {
 
 		// Select the index of user word input in the word array.
@@ -175,7 +180,7 @@ public class EmbeddingAnalyzer {
 
 		System.out.println("Running cosine distances...");
 		System.out.println("Processing word: " + word);
-		CosineDistance[] cosineDistancesArray = computeCosineDistances(word, wordArray, vectorArray);
+		CosineDistance[] cosineDistancesArray = getWordCosines(word, wordArray, vectorArray);
 
 		if (cosineDistancesArray.length == 0) {
 			System.out.println("No cosine distances calculated for word: " + word);

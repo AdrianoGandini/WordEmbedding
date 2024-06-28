@@ -92,7 +92,7 @@ public class Menu {
 			case 1 -> io.setFilePath(); // Set the embedding file path
 			case 2 -> io.setOutputFileName(); // Set the output file name
 			case 3 -> io.setInputWord(); // Enter a word or a text
-			case 4 -> io.test(); // Process and output file
+			case 4 -> io.getWordFile(); // Process and output file
 			case 5 -> io.printWords(false); // Display top close words
 			case 6 -> io.printWords(true); // Display detailed top close words
 			case 7 -> io.configSettings(); // Show configuration settings
