@@ -29,22 +29,29 @@ public class WordEmbeddingIO {
 		config.setFilePath(s.next());
 	}
 	
+	
 	public String getFilepath() {
 		return config.getFilePath();
 	}
 
+	
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
 		config.setInputWord(s.nextLine());	
 	}
 	
-	// TODO Create Regular Expression for the method split. Now it is just
-	// identifying just the spaces. .
-	// Method to handle the user word/ words input.
+	/**
+	 * Method to handle the inputed string and extract the words to be processed.
+	 * 
+	 * @return array with the words on the user inputed string.
+	 */
 	public String [] getInputWordArray() {
-		return config.getInputWord().toLowerCase().split("\\W+"); //Converting the user input to lower case.
+		return config.getInputWord().toLowerCase().split("\\W+");// Converting the user input to lower case and using a regular expression to extract words. 
 	}
 	
+	/*
+	 * Method set the output file name and add the text (txt) file extension. 
+	 */
 	public void setOutputFileName() {
 		System.out.print("[INFO] Please provide the output file name > ");
 		config.setOutputFileName(s.next() + ".txt"); // Add a text extension to the file name.
