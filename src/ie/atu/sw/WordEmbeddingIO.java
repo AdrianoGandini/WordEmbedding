@@ -61,6 +61,9 @@ public class WordEmbeddingIO {
 		return config.getOutputFileName();
 	}
 	
+	/*
+	 * Method display the configuration settings.
+	 */
 	public void configSettings() {
 		System.out.println();
 		System.out.println();
@@ -76,7 +79,13 @@ public class WordEmbeddingIO {
 		System.out.println();
 	}
 	
-	
+	/**
+	 * The method prints a specific number of words from a word array based on the proximity of the cosine distances.
+	 * 
+	 * @param sortedCosineArray an array of CosineDistances objects, sorted by their cosine distances.
+	 * @param wordArray an array of words corresponding to the CosineDistances index.
+	 * @param numberOfCloseWords the number of close words to be printed.
+	 */
 	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
 
 		System.out.println();
@@ -90,7 +99,13 @@ public class WordEmbeddingIO {
 		System.out.println();
 	}
 
-	// Print each close word details.
+	/**
+	 * The method prints a specific number of words details.
+	 * 
+	 * @param sortedCosineArray an array of CosineDistances objects, sorted by their cosine distances.
+	 * @param wordArray an array of words corresponding to the CosineDistances index.
+	 * @param numberOfCloseWords the number of close words to be printed.
+	 */
 	private void printDetailCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
 		for (int j = 0; j < numberOfCloseWords; j++) {
 			CosineDistance cosine = sortedCosineArray[j];
@@ -100,6 +115,11 @@ public class WordEmbeddingIO {
 		System.out.println();
 	}
 	
+	/**
+	 * The method is used to invoke printCloseWords or printDetailCloseWords.
+	 * 
+	 * @param detail boolean that will guide with method is invoked. If the boolean is true the words are printed in details.
+	 */
 	public void printWords(boolean detail) throws IOException {
 
 		String[] inputWords = getInputWordArray();
@@ -118,7 +138,15 @@ public class WordEmbeddingIO {
 		System.out.println();
 	}
 	
-	private void outputWordFile(String fpath, String out, String[] inputWordArray, String[] embeddingWordsArray) throws IOException {
+	/**
+	 * The method create a file that contains the closest words.
+	 * 
+	 * @param fpath the word embedding file path.
+	 * @param out the output file name.
+	 * @param inputWordArray array that contains the user input.
+	 * @param wordArray an array of words corresponding to the CosineDistances index.
+	 */
+	private void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordsArray) throws IOException {
 	    try (BufferedWriter in = new BufferedWriter(new FileWriter(out))) {
 	        for (String inputWord : inputWordArray) {
 	            CosineDistance[] array = analyzer.processCosineDistances(inputWord, fpath);
@@ -126,7 +154,7 @@ public class WordEmbeddingIO {
 	            //TODO remove the hard code 10.
 	            for (int j = 0; j < 10; j++) {
 	                CosineDistance cosine = array[j];
-	                in.write(embeddingWordsArray[cosine.index()]);
+	                in.write(wordsArray[cosine.index()]);
 	                if (j < 10 - 1) {
 	                    in.write(", ");
 	                }
@@ -137,7 +165,7 @@ public class WordEmbeddingIO {
 	}
 	
 	/*
-	 * Method write the top closest words in a ".txt" file.
+	 * Method to invoke outputWordFile and write the top closest words to a ".txt" file.
 	 */
 	public void getWordFile() throws IOException {
 		
