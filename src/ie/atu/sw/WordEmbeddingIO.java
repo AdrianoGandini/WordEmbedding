@@ -23,18 +23,24 @@ public class WordEmbeddingIO {
 		this.s = new Scanner(System.in);
 	}
 
-	
+	/*
+     * Sets the file path for the word embedding file.
+     */
 	public void setFilePath() {
 		System.out.println("[INFO] Enter the Word Embedding file path (with extension) > ");
 		config.setFilePath(s.next());
 	}
 	
-	
+	/*
+     * Returns the file path for the word embedding file.
+     */
 	public String getFilepath() {
 		return config.getFilePath();
 	}
 
-	
+	/*
+     * Sets the input word to be compared.
+     */
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
 		config.setInputWord(s.nextLine());	
@@ -57,6 +63,9 @@ public class WordEmbeddingIO {
 		config.setOutputFileName(s.next() + ".txt"); // Add a text extension to the file name.
 	}
 	
+	/*
+     * Returns the output file name.
+     */
 	public String getOutputFilename() {
 		return config.getOutputFileName();
 	}
@@ -165,7 +174,7 @@ public class WordEmbeddingIO {
 	}
 	
 	/*
-	 * Method to invoke outputWordFile and write the top closest words to a ".txt" file.
+	 * Method to invoke outputWordFile and write a specific number of words to a ".txt" file.
 	 */
 	public void getWordFile() throws IOException {
 		
