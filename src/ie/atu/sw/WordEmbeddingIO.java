@@ -137,14 +137,19 @@ public class WordEmbeddingIO {
 		String[] wordArray = utility.embeddingWordsArray(fpath);
 
 		for (String word : inputWords) {
+			
+			//Add a check if the word is part of the wordArray, from the file. maybe a new method that could be used to the word file too ????
+			
+			
 			CosineDistance[] cosieDistances = analyzer.processCosineDistances(word, fpath);
 			if (detail) {
 				printDetailCloseWords(cosieDistances, wordArray, 10); // Change the hard code "10".
 			} else {
 				printCloseWords(cosieDistances, wordArray, 10);
 			}
+			System.out.println();
 		}
-		System.out.println();
+		
 	}
 	
 	/**
