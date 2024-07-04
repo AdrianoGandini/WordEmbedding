@@ -43,7 +43,7 @@ public class WordEmbeddingIO {
      */
 	public void setInputWord() {
 		System.out.print("Enter the Word to be compared > ");
-		config.setInputWord(s.nextLine());	
+		config.setInputString(s.nextLine());	
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class WordEmbeddingIO {
 	 * @return array with the words on the user inputed string.
 	 */
 	public String [] getInputWordArray() {
-		return config.getInputWord().toLowerCase().split("\\W+");// Converting the user input to lower case and using a regular expression to extract words. 
+		return config.getInputString().toLowerCase().split("\\W+");// Converting the user input to lower case and using a regular expression to extract words. 
 	}
 	
 	/*
@@ -80,7 +80,7 @@ public class WordEmbeddingIO {
 		System.out.println("*            Configuration Settings            *");
 		System.out.println();
 		System.out.println("File path: " + config.getFilePath());
-		System.out.println("Input word: " + config.getInputWord());
+		System.out.println("Input word: " + config.getInputString());
 		System.out.println("Output File Name: " + config.getOutputFileName());
 		System.out.println();
 		System.out.println("************************************************");
