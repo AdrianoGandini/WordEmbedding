@@ -1,9 +1,0 @@
-[ the ] = part, which, this, one, in, as, of, same, onits
-[ big ] = bigger, like, little, huge, coming, hard, come, lot, makingeven
-[ black ] = white, blue, red, green, gray, brown, dark, colored, orangewearing
-[ fox ] = television, show, turner, channel, warner, broadcast, airing, on, cartoonmovie
-[ is ] = this, it, as, same, which, example, an, known, partof
-[ present ] = same, which, of, there, although, this, however, only, asbe
-[ in ] = from, part, of, where, the, which, on, since, asfirst
-[ the ] = part, which, this, one, in, as, of, same, onits
-[ area ] = nearby, town, adjacent, where, northern, city, southern, northwest, southwestalong

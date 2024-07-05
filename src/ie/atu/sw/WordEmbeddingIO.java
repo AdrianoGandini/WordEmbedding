@@ -97,9 +97,8 @@ public class WordEmbeddingIO {
 	 */
 	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
 
-		System.out.println();
 		for (int j = 0; j < numberOfCloseWords; j++) {
-			CosineDistance cosine = sortedCosineArray[j];
+			CosineDistance cosine = sortedCosineArray[j + 1];
 			System.out.print(wordArray[cosine.index()]);
 			if (j < numberOfCloseWords - 1) {
 				System.out.print(", ");
@@ -117,11 +116,34 @@ public class WordEmbeddingIO {
 	 */
 	private void printDetailCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
 		for (int j = 0; j < numberOfCloseWords; j++) {
-			CosineDistance cosine = sortedCosineArray[j];
-			System.out.println("Position: " + j + "; cosine: " + cosine.cosineDistance() + " index: " + cosine.index()
-					+ " word: " + wordArray[cosine.index()]);
+			CosineDistance cosine = sortedCosineArray[j + 1];
+			
+			//Round cosine distance value to four decimal cases.
+			double value = cosine.cosineDistance();
+			String formattedValue = String.format("%.4f", value);
+			double roundValue = Double.parseDouble(formattedValue);
+			
+			//Printing the detailed information.
+			System.out.println("Word " + wordArray[cosine.index()] + "; Position: " + j + "; cosine: " + roundValue  + " index on word embedding file: " + cosine.index());
 		}
 		System.out.println();
+	}
+	
+	/**
+	 * Check if the word to be processed is part of the word embedding file.
+	 * 
+	 * @param wordArray string of words present in the word embedding file.
+	 * @param inputWord user input word.
+	 * @return boolean to flag if the word is present in the array.
+	 */
+	
+	private boolean isStringInArray(String[] wordArray, String inputWord) {
+		for (String word  : wordArray) {
+			if (word.equals(inputWord)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -142,36 +164,19 @@ public class WordEmbeddingIO {
 				System.out.println("Unfortunatly the word " + word + " is not present on the word embedding file.");
 				System.out.println();
 				continue;
-			}
-			
+			}			
 			CosineDistance[] cosieDistances = analyzer.processCosineDistances(word, fpath);
-			if (detail) {
+			if (detail) {		
 				printDetailCloseWords(cosieDistances, wordArray, 10); // Change the hard code "10".
 			} else {
+				System.out.print("[ " + word + " ] = ");
 				printCloseWords(cosieDistances, wordArray, 10);
 			}
 			System.out.println();
 		}
 		
 	}
-	
-	/**
-	 * Check if the word to be processed is part of the word embedding file.
-	 * 
-	 * @param wordArray string of words present in the word embedding file.
-	 * @param inputWord user input word.
-	 * @return boolean to flag if the word is present in the array.
-	 */
-	
-	private boolean isStringInArray(String[] wordArray, String inputWord) {
-		for (String word  : wordArray) {
-			if (word.equals(inputWord)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
+		
 	/**
 	 * The method create a file that contains the closest words.
 	 * 
@@ -199,8 +204,8 @@ public class WordEmbeddingIO {
 	            
 	            //TODO remove the hard code 10.
 	            //For loop starts form 1 to equal 10 in order to avoid the first item of the array. The first element is the inputWord. The processed word will result in cosine distance 1 when compared to itself. 
-	            for (int j = 1; j <= 11; j++) {
-	                CosineDistance cosine = array[j];
+	            for (int j = 0; j < 10; j++) {
+	                CosineDistance cosine = array[j + 1];
 	                in.write(wordsArray[cosine.index()]);
 	                if (j < 10 - 1) {
 	                    in.write(", ");
