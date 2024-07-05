@@ -45,6 +45,7 @@ public class Menu {
 			try {
 				int choice = s.nextInt();
 				handleOptions(choice);
+				//maybe add more exceptions here?
 			} catch (Exception e) {
 				System.out.println();
 				System.out.println("******** The option selected is not valid. Please enter a valid option ******** ");

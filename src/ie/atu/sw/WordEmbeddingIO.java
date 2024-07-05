@@ -138,8 +138,11 @@ public class WordEmbeddingIO {
 
 		for (String word : inputWords) {
 			
-			//Add a check if the word is part of the wordArray, from the file. maybe a new method that could be used to the word file too ????
-			
+			if (isStringInArray(wordArray, word) == false) {
+				System.out.println("Unfortunatly the word " + word + " is not present on the word embedding file.");
+				System.out.println();
+				continue;
+			}
 			
 			CosineDistance[] cosieDistances = analyzer.processCosineDistances(word, fpath);
 			if (detail) {
@@ -153,6 +156,23 @@ public class WordEmbeddingIO {
 	}
 	
 	/**
+	 * Check if the word to be processed is part of the word embedding file.
+	 * 
+	 * @param wordArray string of words present in the word embedding file.
+	 * @param inputWord user input word.
+	 * @return boolean to flag if the word is present in the array.
+	 */
+	
+	private boolean isStringInArray(String[] wordArray, String inputWord) {
+		for (String word  : wordArray) {
+			if (word.equals(inputWord)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * The method create a file that contains the closest words.
 	 * 
 	 * @param fpath the word embedding file path.
@@ -163,10 +183,23 @@ public class WordEmbeddingIO {
 	private void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordsArray) throws IOException {
 	    try (BufferedWriter in = new BufferedWriter(new FileWriter(out))) {
 	        for (String inputWord : inputWordArray) {
+	        	
+	        	//Check if the input word is present on the embedding word file.
+	        	if (isStringInArray(wordsArray, inputWord) == false) {
+					System.out.println("Unfortunatly the word " + inputWord + " is not present on the word embedding file.");
+					in.write("The word " + inputWord + " is not present in the embedding file.");
+					System.out.println();
+					in.write("\n");
+					continue;
+				}	
+	        	
 	            CosineDistance[] array = analyzer.processCosineDistances(inputWord, fpath);
 	            
+	            in.write("[ " + inputWord + " ] = ");
+	            
 	            //TODO remove the hard code 10.
-	            for (int j = 0; j < 10; j++) {
+	            //For loop starts form 1 to equal 10 in order to avoid the first item of the array. The first element is the inputWord. The processed word will result in cosine distance 1 when compared to itself. 
+	            for (int j = 1; j <= 11; j++) {
 	                CosineDistance cosine = array[j];
 	                in.write(wordsArray[cosine.index()]);
 	                if (j < 10 - 1) {

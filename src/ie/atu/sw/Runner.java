@@ -2,6 +2,10 @@ package ie.atu.sw;
 
 import java.util.Scanner;
 
+/*
+ * Class responsible for run the application.
+ */
+
 public class Runner {
 
 	public static void main(String[] args) {

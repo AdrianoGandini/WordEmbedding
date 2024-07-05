@@ -30,7 +30,7 @@ public class EmbeddingAnalyzer {
 				return i;
 			}
 		}
-		System.out.println("The word: " + word + " is not present.");
+		System.out.println("[ERROR] The word: " + word + " not found."); //should i keep this??
 		return -1;
 	}
 
