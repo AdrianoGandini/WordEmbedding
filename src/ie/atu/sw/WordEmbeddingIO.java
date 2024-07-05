@@ -27,7 +27,7 @@ public class WordEmbeddingIO {
      * Sets the file path for the word embedding file.
      */
 	public void setFilePath() {
-		System.out.println("[INFO] Enter the Word Embedding file path (with extension) > ");
+		System.out.println(ConsoleColour.GREEN + "[INFO] Enter the Word Embedding file path (with extension) > " + ConsoleColour.RESET);
 		config.setFilePath(s.next());
 	}
 	
@@ -42,7 +42,7 @@ public class WordEmbeddingIO {
      * Sets the input word to be compared.
      */
 	public void setInputWord() {
-		System.out.print("Enter the Word to be compared > ");
+		System.out.print(ConsoleColour.GREEN + "[INFO] Enter a Word or phrase to be processed > " + ConsoleColour.RESET);
 		config.setInputString(s.nextLine());	
 	}
 	
@@ -55,7 +55,7 @@ public class WordEmbeddingIO {
 		
 		if (config.getInputString() == null) {
 			System.out.println("[ERROR] No word or phrase has been inputed.");
-			System.out.println("Please select option > 3 < to input a word or phrase");
+			System.out.println("Please select option number 3  to input a word or phrase");
 			return null;
 		}else
 			return config.getInputString().toLowerCase().split("\\W+");
@@ -69,7 +69,7 @@ public class WordEmbeddingIO {
 	 * Method set the output file name and add the text (txt) file extension. 
 	 */
 	public void setOutputFileName() {
-		System.out.print("[INFO] Please provide the output file name > ");
+		System.out.print(ConsoleColour.GREEN + "[INFO] Please provide the output file name > " + ConsoleColour.RESET);
 		config.setOutputFileName(s.next() + ".txt"); // Add a text extension to the file name.
 	}
 	
@@ -169,6 +169,7 @@ public class WordEmbeddingIO {
 		if (inputWords == null) {
 			return;
 		}
+		
 		String fpath = getFilepath();
 		
 		String[] wordArray = utility.embeddingWordsArray(fpath);

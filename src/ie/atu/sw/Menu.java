@@ -78,8 +78,8 @@ public class Menu {
 		System.out.println("(8) Quit");
 		System.out.println("(?) Configure Options");
 		System.out.println("(?) Optional Extras...");
-		System.out.println(ConsoleColour.BLACK_BACKGROUND_BRIGHT);
-		System.out.println("Select Option [1 - 8] > ");
+		System.out.println();
+		System.out.println(ConsoleColour.YELLOW + "Select Option [1 - 8] > " + ConsoleColour.RESET);
 		System.out.println();
 	}
 
