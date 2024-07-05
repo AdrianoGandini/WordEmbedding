@@ -52,7 +52,17 @@ public class WordEmbeddingIO {
 	 * @return array with the words on the user inputed string.
 	 */
 	public String [] getInputWordArray() {
-		return config.getInputString().toLowerCase().split("\\W+");// Converting the user input to lower case and using a regular expression to extract words. 
+		
+		if (config.getInputString() == null) {
+			System.out.println("[ERROR] No word or phrase has been inputed.");
+			System.out.println("Please select option > 3 < to input a word or phrase");
+			return null;
+		}else
+			return config.getInputString().toLowerCase().split("\\W+");
+		
+		
+		
+		
 	}
 	
 	/*
@@ -154,6 +164,11 @@ public class WordEmbeddingIO {
 	public void printWords(boolean detail) throws IOException {
 
 		String[] inputWords = getInputWordArray();
+		
+		//Check if the inputWords array is null.
+		if (inputWords == null) {
+			return;
+		}
 		String fpath = getFilepath();
 		
 		String[] wordArray = utility.embeddingWordsArray(fpath);
@@ -197,11 +212,8 @@ public class WordEmbeddingIO {
 					in.write("\n");
 					continue;
 				}	
-	        	
 	            CosineDistance[] array = analyzer.processCosineDistances(inputWord, fpath);
-	            
 	            in.write("[ " + inputWord + " ] = ");
-	            
 	            //TODO remove the hard code 10.
 	            //For loop starts form 1 to equal 10 in order to avoid the first item of the array. The first element is the inputWord. The processed word will result in cosine distance 1 when compared to itself. 
 	            for (int j = 0; j < 10; j++) {

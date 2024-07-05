@@ -69,7 +69,7 @@ public class Menu {
 		System.out.println("*************************************************************");
 		System.out.println();
 		System.out.println("(1) Specify Embedding File - Default path is pre-filled");
-		System.out.println("(2) Specify a Output File name");
+		System.out.println("(2) Specify a Output File name - Default path is pre-filled");
 		System.out.println("(3) Enter a word or a text");
 		System.out.println("(4) Processed file");
 		System.out.println("(5) Display Top close words");

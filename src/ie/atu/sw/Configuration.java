@@ -7,7 +7,7 @@ package ie.atu.sw;
 public class Configuration {
 
 	private String filePath = "./word-embeddings.txt"; //Default file path.
-	private String inputWord;
+	private String inputWord = null;
 	private String outputFileName = "SimilarWordsOut.txt"; //Default output file name.
 	
 	/**
