@@ -74,9 +74,9 @@ public class Menu {
 		System.out.println("(4) Processed file");
 		System.out.println("(5) Display Top close words");
 		System.out.println("(6) Display Detailed Top close words");
-		System.out.println("(7) Show configuration settings");
+		System.out.println("(7) Display the configuration options");
 		System.out.println("(8) Quit");
-		System.out.println("(?) Configure Options");
+		System.out.println("(9) Specify the number of closest words");
 		System.out.println("(?) Optional Extras...");
 		System.out.println();
 		System.out.println(ConsoleColour.YELLOW + "Select Option [1 - 8] > " + ConsoleColour.RESET);
@@ -98,6 +98,7 @@ public class Menu {
 			case 6 -> io.printWords(true); // Display detailed top close words
 			case 7 -> io.configSettings(); // Show configuration settings
 			case 8 -> menuRunning = false; // Quit the application
+			case 9 -> io.setNumberOfCloseWords();
 			default -> System.out.println("Invalid Selection"); // Handle invalid selections
 		}
 	}

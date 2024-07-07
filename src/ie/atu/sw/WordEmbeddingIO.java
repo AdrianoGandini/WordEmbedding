@@ -22,6 +22,19 @@ public class WordEmbeddingIO {
 		this.utility = utility;
 		this.s = new Scanner(System.in);
 	}
+	
+	/*
+	 * Method set the number of close words to be computed in the application.
+	 */
+	public void setNumberOfCloseWords() {
+		System.out.println(ConsoleColour.GREEN + "[INFO] Enter the number of close words to be computed > " + ConsoleColour.RESET);
+		config.setNumberOfCloseWords(s.nextInt());
+	}
+	
+	public int getNumberOfCloseWords() {
+		return config.getNumberOfCloseWords();
+	}
+	
 
 	/*
      * Sets the file path for the word embedding file.
@@ -54,14 +67,11 @@ public class WordEmbeddingIO {
 	public String [] getInputWordArray() {
 		
 		if (config.getInputString() == null) {
-			System.out.println("[ERROR] No word or phrase has been inputed.");
+			System.out.println(ConsoleColour.RED + "[ERROR] No word or phrase has been inputed." + ConsoleColour.RESET);
 			System.out.println("Please select option number 3  to input a word or phrase");
 			return null;
 		}else
-			return config.getInputString().toLowerCase().split("\\W+");
-		
-		
-		
+			return config.getInputString().toLowerCase().split("\\W+");	
 		
 	}
 	
@@ -86,16 +96,25 @@ public class WordEmbeddingIO {
 	public void configSettings() {
 		System.out.println();
 		System.out.println();
-		System.out.println("************************************************");
-		System.out.println("*            Configuration Settings            *");
+		System.out.println("*************************************************************");
+		System.out.println("*                   Configuration Settings                  *");
 		System.out.println();
-		System.out.println("File path: " + config.getFilePath());
-		System.out.println("Input word: " + config.getInputString());
-		System.out.println("Output File Name: " + config.getOutputFileName());
+		confiLineColorPatter("        File path: ", getFilepath());
+		confiLineColorPatter("        Input word or phrase: ", config.getInputString());
+		confiLineColorPatter("        Output File Name: ", config.getOutputFileName());
+		confiLineColorPatter("        Number of close words: ", config.getNumberOfCloseWords());
 		System.out.println();
-		System.out.println("************************************************");
+		System.out.println("*************************************************************");
 		System.out.println();
 		System.out.println();
+	}
+	
+	private void confiLineColorPatter(String info, String value) {
+		System.out.println(ConsoleColour.GREEN + info + ConsoleColour.RESET + ConsoleColour.PURPLE + value + ConsoleColour.RESET);
+	}
+	
+	private void confiLineColorPatter(String info, int value) {
+		System.out.println(ConsoleColour.GREEN + info + ConsoleColour.RESET + ConsoleColour.PURPLE + value + ConsoleColour.RESET);
 	}
 	
 	/**
@@ -106,15 +125,17 @@ public class WordEmbeddingIO {
 	 * @param numberOfCloseWords the number of close words to be printed.
 	 */
 	private void printCloseWords(CosineDistance[] sortedCosineArray, String[] wordArray, int numberOfCloseWords) {
-
+		
+		
+		System.out.print(ConsoleColour.GREEN);
 		for (int j = 0; j < numberOfCloseWords; j++) {
 			CosineDistance cosine = sortedCosineArray[j + 1];
 			System.out.print(wordArray[cosine.index()]);
 			if (j < numberOfCloseWords - 1) {
-				System.out.print(", ");
+				System.out.print(", " );
 			}
 		}
-		System.out.println();
+		System.out.println(ConsoleColour.RESET);
 	}
 
 	/**
@@ -134,9 +155,23 @@ public class WordEmbeddingIO {
 			double roundValue = Double.parseDouble(formattedValue);
 			
 			//Printing the detailed information.
-			System.out.println("Word " + wordArray[cosine.index()] + "; Position: " + j + "; cosine: " + roundValue  + " index on word embedding file: " + cosine.index());
+			//System.out.println(ConsoleColour.GREEN + "Word " + ConsoleColour.PURPLE +  wordArray[cosine.index()] + ConsoleColour.GREEN + "; Position: " + ConsoleColour.PURPLE +  j + ConsoleColour.GREEN +  "; cosine: " + ConsoleColour.PURPLE +   roundValue  + ConsoleColour.GREEN +  " index on word embedding file: " + ConsoleColour.PURPLE + cosine.index() + ConsoleColour.RESET);
+			printDetailsColour(wordArray[cosine.index()], j, roundValue, cosine.index());
 		}
-		System.out.println();
+		System.out.println(ConsoleColour.RESET);
+	}
+	
+	/*
+	 * Color patter Details Close Words. 
+	 */
+	private void printDetailsColour(String word, int position, double cosineValue, int wordEmbeddingFileIndex ) {
+		System.out.println(ConsoleColour.GREEN + "Word " 
+				+ ConsoleColour.PURPLE +  word 
+				+ ConsoleColour.GREEN + "; Position: " 
+				+ ConsoleColour.PURPLE +  position + ConsoleColour.GREEN +  "; cosine: " 
+				+ ConsoleColour.PURPLE +   cosineValue + ConsoleColour.GREEN 
+				+  " index on word embedding file: " 
+				+ ConsoleColour.PURPLE + wordEmbeddingFileIndex + ConsoleColour.RESET);
 	}
 	
 	/**
@@ -164,6 +199,7 @@ public class WordEmbeddingIO {
 	public void printWords(boolean detail) throws IOException {
 
 		String[] inputWords = getInputWordArray();
+		int numberOfCloseWords = config.getNumberOfCloseWords();
 		
 		//Check if the inputWords array is null.
 		if (inputWords == null) {
@@ -177,16 +213,16 @@ public class WordEmbeddingIO {
 		for (String word : inputWords) {
 			
 			if (isStringInArray(wordArray, word) == false) {
-				System.out.println("Unfortunatly the word " + word + " is not present on the word embedding file.");
+				System.out.println(ConsoleColour.RED + "[ERROR]Unfortunatly the word " + word + " is not present on the word embedding file." + ConsoleColour.RESET);
 				System.out.println();
 				continue;
 			}			
 			CosineDistance[] cosieDistances = analyzer.processCosineDistances(word, fpath);
 			if (detail) {		
-				printDetailCloseWords(cosieDistances, wordArray, 10); // Change the hard code "10".
+				printDetailCloseWords(cosieDistances, wordArray, numberOfCloseWords); // Change the hard code "10".
 			} else {
-				System.out.print("[ " + word + " ] = ");
-				printCloseWords(cosieDistances, wordArray, 10);
+				System.out.print(ConsoleColour.GREEN + "[ " + word + " ] = " + ConsoleColour.RESET);
+				printCloseWords(cosieDistances, wordArray, numberOfCloseWords);
 			}
 			System.out.println();
 		}
@@ -201,13 +237,13 @@ public class WordEmbeddingIO {
 	 * @param inputWordArray array that contains the user input.
 	 * @param wordArray an array of words corresponding to the CosineDistances index.
 	 */
-	private void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordsArray) throws IOException {
+	private void outputWordFile(String fpath, String out, String[] inputWordArray, String[] wordsArray, int numberOfCloseWords) throws IOException {
 	    try (BufferedWriter in = new BufferedWriter(new FileWriter(out))) {
 	        for (String inputWord : inputWordArray) {
 	        	
 	        	//Check if the input word is present on the embedding word file.
 	        	if (isStringInArray(wordsArray, inputWord) == false) {
-					System.out.println("Unfortunatly the word " + inputWord + " is not present on the word embedding file.");
+					System.out.println(ConsoleColour.RED + "[ERROR]Unfortunatly the word " + inputWord + " is not present on the word embedding file." + ConsoleColour.RESET);
 					in.write("The word " + inputWord + " is not present in the embedding file.");
 					System.out.println();
 					in.write("\n");
@@ -217,10 +253,10 @@ public class WordEmbeddingIO {
 	            in.write("[ " + inputWord + " ] = ");
 	            //TODO remove the hard code 10.
 	            //For loop starts form 1 to equal 10 in order to avoid the first item of the array. The first element is the inputWord. The processed word will result in cosine distance 1 when compared to itself. 
-	            for (int j = 0; j < 10; j++) {
+	            for (int j = 0; j < numberOfCloseWords; j++) {
 	                CosineDistance cosine = array[j + 1];
 	                in.write(wordsArray[cosine.index()]);
-	                if (j < 10 - 1) {
+	                if (j < numberOfCloseWords - 1) {
 	                    in.write(", ");
 	                }
 	            }
@@ -236,11 +272,12 @@ public class WordEmbeddingIO {
 		
 		String fpath = getFilepath();
 		String outFileName = getOutputFilename();
+		int numberOfCloseWords = getNumberOfCloseWords(); 
 		String [] inputWordArray = getInputWordArray();
 		String [] embeddigWordsArray = utility.embeddingWordsArray(fpath); 
 		
 		try {
-			outputWordFile(fpath, outFileName, inputWordArray, embeddigWordsArray);
+			outputWordFile(fpath, outFileName, inputWordArray, embeddigWordsArray, numberOfCloseWords);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
