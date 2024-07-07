@@ -1,1 +1,2 @@
-[ king ] = prince, queen, son, uncle, emperor
+[ king ] = prince, queen, son, uncle, emperor, throne, kingdom, brother, ruler, grandson
+[ queen ] = princess, elizabeth, lady, king, prince, coronation, consort, daughter, royal, sister
