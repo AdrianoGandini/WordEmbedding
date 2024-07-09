@@ -43,7 +43,7 @@ public class FileReaderUtility {
 	 */
 	private int getNumberOfColumns(String fpath) throws FileNotFoundException, IOException {
 		try (BufferedReader in = new BufferedReader(new FileReader(fpath))) {
-			return in.readLine().split(",").length - 1; //The -1 represents the first word column?? 
+			return in.readLine().split(",").length - 1; //The -1 represents the first word column 
 		}
 	}
 

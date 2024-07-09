@@ -290,6 +290,9 @@ public class WordEmbeddingIO {
 		
 		
 		outputWordFile(fpath, outFileName, inputWordArray, embeddigWordsArray, numberOfCloseWords);
+		
+		System.out.println(ConsoleColour.GREEN + "Your file containing the top " + numberOfCloseWords + " close words has been created." + ConsoleColour.RESET);
+
 			
 	}
 	
