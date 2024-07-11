@@ -168,7 +168,6 @@ public class WordEmbeddingIO {
 			double roundValue = Double.parseDouble(formattedValue);
 			
 			//Printing the detailed information.
-			//System.out.println(ConsoleColour.GREEN + "Word " + ConsoleColour.PURPLE +  wordArray[cosine.index()] + ConsoleColour.GREEN + "; Position: " + ConsoleColour.PURPLE +  j + ConsoleColour.GREEN +  "; cosine: " + ConsoleColour.PURPLE +   roundValue  + ConsoleColour.GREEN +  " index on word embedding file: " + ConsoleColour.PURPLE + cosine.index() + ConsoleColour.RESET);
 			printDetailsColour(wordArray[cosine.index()], j, roundValue, cosine.index());
 		}
 		System.out.println(ConsoleColour.RESET);
@@ -281,6 +280,10 @@ public class WordEmbeddingIO {
 	 * @throws IOExcepion is a I/O fail situation. 
 	 */
 	public void getWordFile() throws IOException {
+		
+		//Add logic to create the file in the download folder.
+		//String home = System.getProperty("user.home");
+        //Path path = Paths.get(home, "Downloads", fileName + ".txt");
 		
 		String fpath = getFilepath();
 		String outFileName = getOutputFilename();
