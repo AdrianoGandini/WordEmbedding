@@ -8,7 +8,7 @@ public class Configuration {
 
 	private String filePath = "./word-embeddings.txt"; //Default file path.
 	private String inputWord = null;
-	private String outputFileName = "/Users/adrianogandini/Downloads/SimilarWordsOut.txt"; //Default output file name.
+	private String outputFileName = "test"; //Default output file name.
 	private int numberOfCloseWords = 10; //Default number of close words.
 	
 	public int getNumberOfCloseWords() {

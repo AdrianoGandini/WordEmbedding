@@ -3,6 +3,8 @@ package ie.atu.sw;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /*
@@ -281,9 +283,7 @@ public class WordEmbeddingIO {
 	 */
 	public void getWordFile() throws IOException {
 		
-		//Add logic to create the file in the download folder.
-		//String home = System.getProperty("user.home");
-        //Path path = Paths.get(home, "Downloads", fileName + ".txt");
+		
 		
 		String fpath = getFilepath();
 		String outFileName = getOutputFilename();
@@ -291,8 +291,12 @@ public class WordEmbeddingIO {
 		String [] inputWordArray = getInputWordArray();
 		String [] embeddigWordsArray = utility.embeddingWordsArray(fpath); 
 		
+		//Add logic to create the file in the download folder.
+		String home = System.getProperty("user.home");
+		Path outPath = Paths.get(home, "Downloads", outFileName  + ".txt");
 		
-		outputWordFile(fpath, outFileName, inputWordArray, embeddigWordsArray, numberOfCloseWords);
+		String out = outPath.toString();
+		outputWordFile(fpath, out, inputWordArray, embeddigWordsArray, numberOfCloseWords);
 		
 		System.out.println(ConsoleColour.GREEN + "Your file containing the top " + numberOfCloseWords + " close words has been created." + ConsoleColour.RESET);
 
