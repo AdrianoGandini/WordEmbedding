@@ -82,7 +82,7 @@ public class WordEmbeddingIO {
 	 */
 	public void setOutputFileName() {
 		System.out.print(ConsoleColour.GREEN + "[INFO] Please provide the output file name > " + ConsoleColour.RESET);
-		config.setOutputFileName(s.next() + ".txt"); // Add a text extension to the file name.
+		config.setOutputFileName(s.next());
 	}
 	
 	/*
@@ -276,6 +276,24 @@ public class WordEmbeddingIO {
 	    }
 	}
 	
+	
+	
+	/**
+	 * Creates a path for the output file.
+	 * 
+	 * @param outFileName the name for the output file.
+	 * @return The output file path as String.
+	 */
+	private String getOutFilePath(String outFileName) {
+		
+		//Add the logic to create the file in the Download folder.
+		String home = System.getProperty("user.home");
+		Path path = Paths.get(home, "Downloads", outFileName + ".txt");
+		
+		return path.toString();
+	}
+	
+	
 	/**
 	 * Method to invoke outputWordFile and write a specific number of words to a ".txt" file.
 	 * 
@@ -287,18 +305,15 @@ public class WordEmbeddingIO {
 		
 		String fpath = getFilepath();
 		String outFileName = getOutputFilename();
-		int numberOfCloseWords = getNumberOfCloseWords(); 
+		int numberOfCloseWords = getNumberOfCloseWords();
 		String [] inputWordArray = getInputWordArray();
 		String [] embeddigWordsArray = utility.embeddingWordsArray(fpath); 
 		
-		//Add logic to create the file in the download folder.
-		String home = System.getProperty("user.home");
-		Path outPath = Paths.get(home, "Downloads", outFileName  + ".txt");
+		String out = getOutFilePath(outFileName);
 		
-		String out = outPath.toString();
 		outputWordFile(fpath, out, inputWordArray, embeddigWordsArray, numberOfCloseWords);
 		
-		System.out.println(ConsoleColour.GREEN + "Your file containing the top " + numberOfCloseWords + " close words has been created." + ConsoleColour.RESET);
+		System.out.println(ConsoleColour.PURPLE + "The file named " + outFileName + " containing the top " + numberOfCloseWords + " close words has been created in the Downloads folder." + ConsoleColour.RESET);
 
 			
 	}

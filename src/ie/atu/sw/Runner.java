@@ -19,7 +19,7 @@ public class Runner {
 		WordEmbeddingIO io = new WordEmbeddingIO(config, analyzer, file);
 		
 		//Create a menu instance and pass all dependencies
-		Menu menu = new Menu(io, config, file, analyzer, sort, s);
+		Menu menu = new Menu(io, s);
 		
 		menu.start();
 	}

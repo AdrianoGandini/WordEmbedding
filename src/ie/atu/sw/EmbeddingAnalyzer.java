@@ -178,8 +178,9 @@ public class EmbeddingAnalyzer {
 		String[] wordArray = utility.embeddingWordsArray(fpath);
 		Double[][] vectorArray = utility.embeddingVectorArray(fpath);
 
-		System.out.println("Running cosine distances...");
-		System.out.println("Processing word: " + word);
+		System.out.println(ConsoleColour.GREEN + "Running cosine distances..." + ConsoleColour.RESET);
+		System.out.println(ConsoleColour.GREEN + "Processing word: " + word + ConsoleColour.RESET);
+		System.out.println();
 		CosineDistance[] cosineDistancesArray = getWordCosines(word, wordArray, vectorArray);
 
 		if (cosineDistancesArray.length == 0) {

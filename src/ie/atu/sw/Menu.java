@@ -12,10 +12,7 @@ import java.util.Scanner;
 public class Menu {
 
 	private WordEmbeddingIO io;
-	private Configuration config;
-	private FileReaderUtility file;
-	private EmbeddingAnalyzer analyzer;
-	private Sort sort;
+	
 	private boolean menuRunning;
 	private Scanner s;
 
@@ -24,12 +21,9 @@ public class Menu {
 	 * Constructor initiating the the class variables.
 	 */
 	
-	public Menu(WordEmbeddingIO io, Configuration config, FileReaderUtility file, EmbeddingAnalyzer analyzer, Sort sort, Scanner s) {
+	public Menu(WordEmbeddingIO io,  Scanner s) {
 		this.io = io;
-		this.config = config;
-		this.file = file;
-		this.analyzer = analyzer;
-		this.sort = sort;
+		
 		this.menuRunning = true;
 		this.s = s;
 	}
