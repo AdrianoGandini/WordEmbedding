@@ -74,6 +74,29 @@ When you run the application, it will:
 3. Show a menu with options for the user to select.
 4. Perform tasks based on user input, such as sorting arrays or analyzing embeddings.
 
+## Detailed Instructions
+
+Follow the options in the console to set the desired word or phrase, word-embedding file path, and output file name. If the word-embedding file path or output file name are not set, the default values ./word-embeddings.txt and SimilarWordsOut will be used. The generated file will be created in the user’s Downloads folder. If the word-embedding file is not present in the directory, an I/O error message will be prompted. Traditional Command Prompt or older PowerShell versions may not render colors correctly. Use Windows Terminal or Git Bash for proper ANSI color code display. If you open the configuration file in these environments, the color coding will enhance readability by visually differentiating various sections.
+
+## Features
+
+Configuration:
+1. Specify the Embedding File:
+* Default path ./word-embeddings.txt.
+* Ability to specify a new embedding file path.
+2. Specify an output file name:
+* Default name is SimilarWordsOut.
+* Option to specify a different output file path and name.
+3. The user must input a phrase or word to be processed.
+4. Specify the number of close words to be displayed:
+* The default close words count is 10.
+5. The processed word display information:
+* Display the word inputted and the top close words.
+* Display the word inputted and the top close words with the following details (relative position between top words, cosine distance calculated value, and the word index on the word embedding file).
+6. Create an output file:
+* A processed top close words text file can be generated.
+* The generated file will be created in the user’s Downloads folder.
+
 ## Screenshots
 
 ### Main Menu
