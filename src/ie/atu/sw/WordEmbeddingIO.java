@@ -92,10 +92,17 @@ public class WordEmbeddingIO {
 		return config.getOutputFileName();
 	}
 	
+	/**
+	 * Color pattern configuration setting lines.
+	 */
 	private void confiLineColorPatter(String info, String value) {
 		System.out.println(ConsoleColour.GREEN + info + ConsoleColour.RESET + ConsoleColour.PURPLE + value + ConsoleColour.RESET);
 	}
 	
+	/*
+	 * Color patter configuration settings lines.
+	 * This method is overloaded to handle different types of value parameters.
+	 */
 	private void confiLineColorPatter(String info, int value) {
 		System.out.println(ConsoleColour.GREEN + info + ConsoleColour.RESET + ConsoleColour.PURPLE + value + ConsoleColour.RESET);
 	}
@@ -283,11 +290,15 @@ public class WordEmbeddingIO {
 	 * 
 	 * @param outFileName the name for the output file.
 	 * @return The output file path as String.
+	 * 
+	 * font: https://stackoverflow.com/questions/30416365/general-path-to-downloads-folder
 	 */
 	private String getOutFilePath(String outFileName) {
 		
-		//Add the logic to create the file in the Download folder.
+		//Get the user's home directory.
 		String home = System.getProperty("user.home");
+		
+		//Construct the path to the Downloads folder.
 		Path path = Paths.get(home, "Downloads", outFileName + ".txt");
 		
 		return path.toString();
@@ -295,7 +306,7 @@ public class WordEmbeddingIO {
 	
 	
 	/**
-	 * Method to invoke outputWordFile and write a specific number of words to a ".txt" file.
+	 * Method to invoke outputWordFile and write a specific number of words to a text file.
 	 * 
 	 * @throws IOExcepion is a I/O fail situation. 
 	 */

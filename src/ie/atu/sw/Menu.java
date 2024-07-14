@@ -40,7 +40,6 @@ public class Menu {
 			try {
 				int choice = s.nextInt();
 				handleOptions(choice);
-				//maybe add more exceptions here?
 			} catch (InputMismatchException e) {
 				System.out.println();
 				System.out.println(ConsoleColour.RED + "[ERROR]The option selected is not valid. Please select a optiion [1 - 9]" + ConsoleColour.RESET);

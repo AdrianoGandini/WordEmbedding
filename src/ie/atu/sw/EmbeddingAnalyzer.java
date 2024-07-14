@@ -30,7 +30,7 @@ public class EmbeddingAnalyzer {
 				return i;
 			}
 		}
-		System.out.println("[ERROR] The word: " + word + " not found."); //should i keep this??
+		System.out.println("[ERROR] The word: " + word + " not found.");
 		return -1;
 	}
 
@@ -55,7 +55,7 @@ public class EmbeddingAnalyzer {
 	/**
 	 * Method to perform the dot product calculation of two vectors.
 	 *
-	 * @param The     first vector as an array of Double.
+	 * @param vectorA The first vector as an array of Double.
 	 * @param vectorB The second vector as an array of Double.
 	 * @return The dot product of vectorA and vectorB. font =
 	 *         https://www.geeksforgeeks.org/program-dot-product-cross-product-two-vector/

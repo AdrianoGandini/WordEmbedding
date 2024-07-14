@@ -8,13 +8,18 @@ public class Configuration {
 
 	private String filePath = "./word-embeddings.txt"; //Default file path.
 	private String inputWord = null;
-	private String outputFileName = "test"; //Default output file name.
+	private String outputFileName = "SimilarWordsOut"; //Default output file name.
 	private int numberOfCloseWords = 10; //Default number of close words.
 	
 	public int getNumberOfCloseWords() {
 		return numberOfCloseWords;
 	}
-
+	
+	/**
+	 * Sets the number of close words to be processed.
+	 * 
+	 * @return the number of close words.
+	 */
 	public void setNumberOfCloseWords(int numberOfCloseWords) {
 		this.numberOfCloseWords = numberOfCloseWords;
 	}
